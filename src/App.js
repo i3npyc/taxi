@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { Home, About, Profile } from './pages/index';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const PAGES = {
+    home: <Home />,
+    about: <About />,
+    profile: <Profile />
+  };
+  const navigateTo = page => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <button onClick={() => navigateTo('home')}>Home</button>
+            </li>
+            <li>
+              <button onClick={() => navigateTo('about')}>About</button>
+            </li>
+            <li>
+              <button onClick={() => navigateTo('profile')}>Profile</button>
+            </li>
+          </ul>
+        </nav>
       </header>
+      <main>
+        <section>{PAGES[currentPage]}</section>
+      </main>
     </div>
   );
-}
+};
 
 export default App;
