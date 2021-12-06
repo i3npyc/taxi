@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Home, About, Profile } from './pages/index';
+import { Login, Map, Profile, Registration } from './pages/index';
+import { Header } from './components/index';
 import './App.css';
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState('login');
 
   const PAGES = {
-    home: <Home />,
-    about: <About />,
-    profile: <Profile />
+    login: <Login />,
+    map: <Map />,
+    profile: <Profile />,
+    registration: <Registration />
   };
   const navigateTo = page => {
     setCurrentPage(page);
@@ -16,21 +18,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <button onClick={() => navigateTo('home')}>Home</button>
-            </li>
-            <li>
-              <button onClick={() => navigateTo('about')}>About</button>
-            </li>
-            <li>
-              <button onClick={() => navigateTo('profile')}>Profile</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Header navigateTo={navigateTo} />
       <main>
         <section>{PAGES[currentPage]}</section>
       </main>
