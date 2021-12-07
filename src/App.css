@@ -3,9 +3,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  font-family: 'Roboto', sans-serif;
+}
 .App {
   padding: 30px;
 }
 li {
   list-style: none;
+}
+input {
+  border: none;
+  background: none;
+}
+input:focus {
+  outline: none;
+}
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
