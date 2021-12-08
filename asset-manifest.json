@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/taxi/static/css/main.298a474d.chunk.css",
+    "main.css": "/taxi/static/css/main.02c9be52.chunk.css",
     "main.js": "/taxi/static/js/main.2d52c7d2.chunk.js",
     "main.js.map": "/taxi/static/js/main.2d52c7d2.chunk.js.map",
     "runtime-main.js": "/taxi/static/js/runtime-main.bd91fe41.js",
@@ -8,14 +8,15 @@
     "static/js/2.d900be9d.chunk.js": "/taxi/static/js/2.d900be9d.chunk.js",
     "static/js/2.d900be9d.chunk.js.map": "/taxi/static/js/2.d900be9d.chunk.js.map",
     "index.html": "/taxi/index.html",
-    "static/css/main.298a474d.chunk.css.map": "/taxi/static/css/main.298a474d.chunk.css.map",
+    "static/css/main.02c9be52.chunk.css.map": "/taxi/static/css/main.02c9be52.chunk.css.map",
     "static/js/2.d900be9d.chunk.js.LICENSE.txt": "/taxi/static/js/2.d900be9d.chunk.js.LICENSE.txt",
-    "static/media/logo.b62304ff.svg": "/taxi/static/media/logo.b62304ff.svg"
+    "static/media/logo.b62304ff.svg": "/taxi/static/media/logo.b62304ff.svg",
+    "static/media/App.css": "/taxi/static/media/map.3242602b.png"
   },
   "entrypoints": [
     "static/js/runtime-main.bd91fe41.js",
     "static/js/2.d900be9d.chunk.js",
-    "static/css/main.298a474d.chunk.css",
+    "static/css/main.02c9be52.chunk.css",
     "static/js/main.2d52c7d2.chunk.js"
   ]
 }
