@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/taxi/static/css/main.9cd3ac1a.chunk.css",
-    "main.js": "/taxi/static/js/main.fb15fbc0.chunk.js",
-    "main.js.map": "/taxi/static/js/main.fb15fbc0.chunk.js.map",
+    "main.css": "/taxi/static/css/main.298a474d.chunk.css",
+    "main.js": "/taxi/static/js/main.2d52c7d2.chunk.js",
+    "main.js.map": "/taxi/static/js/main.2d52c7d2.chunk.js.map",
     "runtime-main.js": "/taxi/static/js/runtime-main.bd91fe41.js",
     "runtime-main.js.map": "/taxi/static/js/runtime-main.bd91fe41.js.map",
-    "static/js/2.395f77b2.chunk.js": "/taxi/static/js/2.395f77b2.chunk.js",
-    "static/js/2.395f77b2.chunk.js.map": "/taxi/static/js/2.395f77b2.chunk.js.map",
+    "static/js/2.d900be9d.chunk.js": "/taxi/static/js/2.d900be9d.chunk.js",
+    "static/js/2.d900be9d.chunk.js.map": "/taxi/static/js/2.d900be9d.chunk.js.map",
     "index.html": "/taxi/index.html",
-    "static/css/main.9cd3ac1a.chunk.css.map": "/taxi/static/css/main.9cd3ac1a.chunk.css.map",
-    "static/js/2.395f77b2.chunk.js.LICENSE.txt": "/taxi/static/js/2.395f77b2.chunk.js.LICENSE.txt"
+    "static/css/main.298a474d.chunk.css.map": "/taxi/static/css/main.298a474d.chunk.css.map",
+    "static/js/2.d900be9d.chunk.js.LICENSE.txt": "/taxi/static/js/2.d900be9d.chunk.js.LICENSE.txt",
+    "static/media/logo.b62304ff.svg": "/taxi/static/media/logo.b62304ff.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.bd91fe41.js",
-    "static/js/2.395f77b2.chunk.js",
-    "static/css/main.9cd3ac1a.chunk.css",
-    "static/js/main.fb15fbc0.chunk.js"
+    "static/js/2.d900be9d.chunk.js",
+    "static/css/main.298a474d.chunk.css",
+    "static/js/main.2d52c7d2.chunk.js"
   ]
 }
