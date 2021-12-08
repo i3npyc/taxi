@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = ({ id, type, name, label }) => {
+const Input = ({ id, type, name, label, value, change }) => {
+  const hendler = (e) => {
+    change(e.target.value)
+  }
   return (
     <Input.Container>
       <Input.Label htmlFor={id}>{label}</Input.Label>
-      <Input.Input type={type ? type : 'text'} name={name} id={id} size="28" />
+      <Input.Input onChange={hendler} value={value} type={type ||'text'} name={name} id={id} size="28" />
     </Input.Container>
   );
 };
