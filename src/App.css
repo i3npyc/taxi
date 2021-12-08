@@ -21,3 +21,7 @@ button {
   background: none;
   cursor: pointer;
 }
+.App {
+  height: 100vh;
+  background: url('./static/img/map.png') no-repeat center / cover;
+}
