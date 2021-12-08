@@ -7,15 +7,34 @@ import mastercard from '../static/img/card/mastercard.svg';
 
 class Profile extends React.Component {
   state = {
-    numberCard: '323232',
-    numberCardValue: ''
-  }
-
-  change = (value) => {
-    this.setState = ({numberCardValue : value})
-  }
+    numberCardValue: '',
+    nameValue: '',
+    dataValue: '',
+    cvcValue: ''
+  };
+  hendlerChange = e => {
+    switch (e.target.name) {
+      case 'number':
+        this.setState({ numberCardValue: e.target.value });
+        break;
+      case 'name':
+        this.setState({ nameValue: e.target.value });
+        break;
+      case 'data':
+        this.setState({ dataValue: e.target.value });
+        break;
+      case 'cvc':
+        this.setState({ cvcValue: e.target.value });
+        break;
+      default:
+        break;
+    }
+  };
+  numberValue = value => value.replace(/[^\d]/g, '');
   render() {
-    const { numberCard, numberCardValue } = this.state;
+    const { numberCardValue, nameValue, dataValue, cvcValue } = this.state;
+    let numberCard = numberCardValue.replace(/[^\d]/g, '').substring(0, 16);
+    numberCard = numberCard !== '' ? numberCard.match(/.{1,4}/g).join(' ') : '';
     return (
       <Profile.Container>
         <Profile.Content>
@@ -25,11 +44,42 @@ class Profile extends React.Component {
           </Profile.Header>
           <Profile.Data>
             <Profile.DataItem>
-              <Input type="text" black label="Имя владельца" />
-              <Input change={this.change} value={numberCardValue} type="number" black label="Номер карты" />
+              <Input
+                hendlerChange={this.hendlerChange}
+                value={nameValue.toLocaleUpperCase()}
+                name="name"
+                type="text"
+                black
+                label="Имя владельца"
+              />
+              <Input
+                hendlerChange={this.hendlerChange}
+                value={this.numberValue(numberCardValue)}
+                type="text"
+                black
+                label="Номер карты"
+                maxlength="16"
+                name="number"
+              />
               <Profile.InputBlock>
-                <Input type="number" black label="MM/YY" />
-                <Input maxlength="3" type="number" black label="CVC" />
+                <Input
+                  hendlerChange={this.hendlerChange}
+                  maxlength="5"
+                  type="text"
+                  value={this.numberValue(dataValue)}
+                  name="data"
+                  black
+                  label="MM/YY"
+                />
+                <Input
+                  hendlerChange={this.hendlerChange}
+                  maxlength="3"
+                  type="text"
+                  value={this.numberValue(cvcValue)}
+                  name="cvc"
+                  black
+                  label="CVC"
+                />
               </Profile.InputBlock>
             </Profile.DataItem>
             <Profile.DataItem>
@@ -40,7 +90,7 @@ class Profile extends React.Component {
                     <Profile.CardDate>05/08</Profile.CardDate>
                   </Profile.CardColumn>
                   <Profile.CardColumn>
-                    <Profile.CardNumber>{numberCardValue}</Profile.CardNumber>
+                    <Profile.CardNumber>{numberCard}</Profile.CardNumber>
                   </Profile.CardColumn>
                   <Profile.CardColumn>
                     <Profile.Chip></Profile.Chip>
@@ -136,12 +186,12 @@ Profile.CardNumber = styled.div`
   font-size: 21px;
   line-height: 25px;
 `;
-Profile.Chip = styled.div` 
+Profile.Chip = styled.div`
   width: 30px;
   height: 30px;
   background: url(${chip}) no-repeat;
 `;
-Profile.MasterCard = styled.div` 
+Profile.MasterCard = styled.div`
   width: 46px;
   height: 28px;
   background: url(${mastercard}) no-repeat;

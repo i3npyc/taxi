@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = ({ id, type, name, label, value, change }) => {
-  const hendler = (e) => {
-    change(e.target.value)
-  }
+const Input = ({ id, type, name, label, value, hendlerChange, maxlength }) => {
   return (
     <Input.Container>
       <Input.Label htmlFor={id}>{label}</Input.Label>
-      <Input.Input onChange={hendler} value={value} type={type ||'text'} name={name} id={id} size="28" />
+      <Input.Input
+        maxLength={maxlength}
+        onChange={hendlerChange}
+        value={value}
+        type={type || 'text'}
+        name={name}
+        id={id}
+      />
     </Input.Container>
   );
 };
