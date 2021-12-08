@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ({ children }) => (
-  <Button.Container>{children}</Button.Container>
+const Button = ({ children, openMap }) => (
+  <Button.Container onClick={() => openMap('map')}>{children}</Button.Container>
 );
 
 Button.Container = styled.button`
   height: 61px;
-  padding: 0px 141px;
+  width: 100%;
   display: inline-flex;
   justify-content: center;
   align-items: center;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Map } from './index';
+import { CustomForm } from '../components/index';
 
 class Registration extends React.Component {
   state = { currentPage: '' };
@@ -13,41 +14,22 @@ class Registration extends React.Component {
   render() {
     const { currentPage } = this.state;
     const PAGE = { map: <Map /> };
+    const listInput = [
+      { id: 1, type: 'email', name: 'email', label: 'Email*' },
+      { id: 2, type: 'text', name: 'name', label: 'Как вас зовут?*' },
+      { id: 3, type: 'password', name: 'password', label: 'Придумайте пароль*' }
+    ];
     return (
       <>
         {currentPage === '' ? (
-          <form onSubmit={this.prevent}>
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Адрес электронной почты"
-                size="28"
-              />
-            </div>
-            <div>
-              <input type="text" name="firstname" placeholder="Имя" size="28" />
-            </div>
-            <div>
-              <input
-                type="text"
-                name="lastname"
-                placeholder="Фамилия"
-                size="28"
-              />
-            </div>
-            <div>
-              <input
-                type="password"
-                name="password"
-                placeholder="Пароль"
-                size="28"
-              />
-            </div>
-            <button onClick={() => this.navigateTo('map')}>
-              Зарегистрироваться
-            </button>
-          </form>
+          <CustomForm
+            register
+            title="Регистрация"
+            buttonText="Зарегистрироваться"
+            listInput={listInput}
+            navigateTo={this.navigateTo}
+            prevent={this.prevent}
+          />
         ) : (
           <div>{PAGE[currentPage]}</div>
         )}

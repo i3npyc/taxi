@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = ({ id, type, name, cildren }) => {
+const Input = ({ id, type, name, label }) => {
   return (
     <Input.Container>
-      <Input.Label htmlFor={id}>{cildren}</Input.Label>
+      <Input.Label htmlFor={id}>{label}</Input.Label>
       <Input.Input type={type && 'text'} name={name} id={id} size="28" />
     </Input.Container>
   );
