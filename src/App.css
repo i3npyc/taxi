@@ -24,4 +24,5 @@ button {
 .App {
   overflow: hidden;
   height: 100vh;
+  background: url('./static/img/map.png') no-repeat center / cover;
 }
