@@ -27,7 +27,7 @@ class Profile extends React.Component {
         this.setState({ cvcValue: e.target.value });
         break;
       default:
-        break;
+        return;
     }
   };
   numberValue = value => value.replace(/[^\d]/g, '');
@@ -64,7 +64,7 @@ class Profile extends React.Component {
               <Profile.InputBlock>
                 <Input
                   hendlerChange={this.hendlerChange}
-                  maxlength="5"
+                  maxlength="4"
                   type="text"
                   value={this.numberValue(dataValue)}
                   name="data"
@@ -87,7 +87,7 @@ class Profile extends React.Component {
                 <Profile.CardContent>
                   <Profile.CardColumn>
                     <Profile.CardCircle></Profile.CardCircle>
-                    <Profile.CardDate>05/08</Profile.CardDate>
+                  <Profile.CardDate>{dataValue.slice(0, 2) + '/' + dataValue.slice(2, 4)}</Profile.CardDate>
                   </Profile.CardColumn>
                   <Profile.CardColumn>
                     <Profile.CardNumber>{numberCard}</Profile.CardNumber>
@@ -100,7 +100,7 @@ class Profile extends React.Component {
               </Profile.Card>
             </Profile.DataItem>
           </Profile.Data>
-          <Button>Сохранить</Button>
+          <Profile.BlockButton><Button>Сохранить</Button></Profile.BlockButton>
         </Profile.Content>
       </Profile.Container>
     );
@@ -145,8 +145,13 @@ Profile.Label = styled.div`
   color: #7b7b7b;
 `;
 Profile.Data = styled.div`
+  margin: 0px 0px 15px 0px;
   display: flex;
   gap: 99px;
+`;
+Profile.BlockButton = styled.div `
+  display: flex;
+  justify-content: center;
 `;
 Profile.DataItem = styled.div`
   flex: 0 1 50%;
