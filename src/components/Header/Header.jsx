@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import propTypes from 'prop-types';
 import styled from 'styled-components';
 import logo from '../../static/img/logo.svg';
 import { AuthContext } from '../../auth/AuthContext';
@@ -60,6 +61,10 @@ const Header = ({ navigateTo }) => {
       </Header.Content>
     </Header.Container>
   );
+};
+
+Header.propTypes = {
+  navigateTo: propTypes.func
 };
 
 Header.Container = styled.header`

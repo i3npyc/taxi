@@ -1,9 +1,19 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Button = ({ children, onClick, width, type }) => (
-  <Button.Container onClick={onClick} type={type} width={width}>{children}</Button.Container>
-);
+const Button = ({ children, onClick, width, type }) => {
+  return (
+    <Button.Container onClick={onClick} type={type} width={width}>{children}</Button.Container>
+  )
+};
+
+Button.propTypes = {
+  children: propTypes.string,
+  onClick: propTypes.func,
+  width: propTypes.bool,
+  type: propTypes.string,
+}
 
 Button.Container = styled.button`
   height: 61px;

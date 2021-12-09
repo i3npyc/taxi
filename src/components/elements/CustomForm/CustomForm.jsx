@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 import { Input, Button } from '../../index';
 
 const CustomForm = ({
@@ -30,10 +31,21 @@ const CustomForm = ({
             <CustomForm.Forget>Забыли пароль?</CustomForm.Forget>
           )}
         </CustomForm.ForgetContainer>
-        <Button onClick={onClick} type="submit">{buttonText}</Button>
+        <Button onClick={onClick} type="submit">
+          {buttonText}
+        </Button>
       </CustomForm.Form>
     </CustomForm.Container>
   );
+};
+
+CustomForm.propTypes = {
+  title: propTypes.string,
+  listInput: propTypes.array,
+  buttonText: propTypes.string,
+  onSubmit: propTypes.func,
+  register: propTypes.bool,
+  onClick: propTypes.func
 };
 
 CustomForm.Container = styled.div`

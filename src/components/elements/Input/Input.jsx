@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Input = ({ id, type, name, label, value, hendlerChange, maxlength }) => {
@@ -15,6 +16,16 @@ const Input = ({ id, type, name, label, value, hendlerChange, maxlength }) => {
       />
     </Input.Container>
   );
+};
+
+Input.propTypes = {
+  id: propTypes.number,
+  type: propTypes.string,
+  name: propTypes.string,
+  label: propTypes.string,
+  value: propTypes.string,
+  hendlerChange: propTypes.func,
+  maxLength: propTypes.string
 };
 
 Input.Container = styled.div`

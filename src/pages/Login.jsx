@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { CustomForm } from '../components/index';
 import { withAuth } from '../auth/AuthContext';
 
@@ -34,5 +35,11 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  navigate: propTypes.func,
+  logIn: propTypes.func,
+  isLoggedIn: propTypes.bool
+};
 
 export const LoginWithAuth = withAuth(Login);
