@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Input } from '../components/index';
+import { withAuth } from '../auth/AuthContext';
 import circle from '../static/img/card/circle.svg';
 import chip from '../static/img/card/chip.svg';
 import mastercard from '../static/img/card/mastercard.svg';
@@ -202,4 +203,4 @@ Profile.MasterCard = styled.div`
   background: url(${mastercard}) no-repeat;
 `;
 
-export default Profile;
+export const ProfilewithAuth = withAuth(Profile);

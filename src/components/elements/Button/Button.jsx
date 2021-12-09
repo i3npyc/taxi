@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ({ children, openMap, width }) => (
-  <Button.Container width={width} onClick={() => openMap('map')}>{children}</Button.Container>
+const Button = ({ children, onClick, width, type }) => (
+  <Button.Container onClick={onClick} type={type} width={width}>{children}</Button.Container>
 );
 
 Button.Container = styled.button`

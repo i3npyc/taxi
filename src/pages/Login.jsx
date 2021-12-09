@@ -1,41 +1,38 @@
 import React from 'react';
-import { Map } from './index';
 import { CustomForm } from '../components/index';
+import { withAuth } from '../auth/AuthContext';
 
 class Login extends React.Component {
-  state = { currentPage: '' };
-
-  prevent = e => {
-    e.preventDefault();
+  goToProfile = () => {
+    this.props.navigate('profile');
   };
-  navigateTo = page => {
-    this.setState({ currentPage: page });
+  authenticate = e => {
+    e.preventDefault();
+    const { email, password } = e.target;
+    this.props.logIn(email.value, password.value);
   };
   render() {
-    const { currentPage } = this.state;
-    const PAGES = {
-      map: <Map />
-    };
     const listInput = [
       { id: 1, type: 'email', name: 'email', label: 'Email' },
       { id: 2, type: 'password', name: 'password', label: 'Пароль' }
     ];
     return (
       <>
-        {!currentPage.length ? (
+        {this.props.isLoggedIn ? (
+          <p>
+            <button onClick={this.goToProfile}>go to profile</button>
+          </p>
+        ) : (
           <CustomForm
             title="Войти"
             buttonText="Войти"
             listInput={listInput}
-            navigateTo={this.navigateTo}
-            prevent={this.prevent}
+            onSubmit={this.authenticate}
           />
-        ) : (
-          <section>{PAGES[currentPage]}</section>
         )}
       </>
     );
   }
 }
 
-export default Login;
+export const LoginWithAuth = withAuth(Login);

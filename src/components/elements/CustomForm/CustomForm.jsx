@@ -6,13 +6,13 @@ const CustomForm = ({
   title,
   listInput,
   buttonText,
-  navigateTo,
-  prevent,
-  register
+  onSubmit,
+  register,
+  onClick
 }) => {
   return (
     <CustomForm.Container>
-      <CustomForm.Form onSubmit={prevent}>
+      <CustomForm.Form onSubmit={onSubmit}>
         <CustomForm.Title>{title}</CustomForm.Title>
         {listInput.map(input => (
           <Input
@@ -30,7 +30,7 @@ const CustomForm = ({
             <CustomForm.Forget>Забыли пароль?</CustomForm.Forget>
           )}
         </CustomForm.ForgetContainer>
-        <Button openMap={navigateTo}>{buttonText}</Button>
+        <Button onClick={onClick} type="submit">{buttonText}</Button>
       </CustomForm.Form>
     </CustomForm.Container>
   );
