@@ -2,13 +2,15 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import logo from '../../static/img/logo.svg';
-import { useSelector } from 'react-redux';
+import { logOut } from '../../auth/actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Header = ({ navigateTo }) => {
-  const { isLoggedIn, logOut } = useSelector(state => state.auth);
+  const { isLoggedIn } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
 
   const headerLogOut = () => {
-    logOut();
+    dispatch(logOut())
     navigateTo('login');
   };
   return (
