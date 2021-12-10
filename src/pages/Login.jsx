@@ -1,7 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { CustomForm } from '../components/index';
-import { withAuth } from '../auth/AuthContext';
+import { connect } from 'react-redux';
+import { logIn } from '../auth/actions'
 
 class Login extends React.Component {
   goToProfile = () => {
@@ -42,4 +43,7 @@ Login.propTypes = {
   isLoggedIn: propTypes.bool
 };
 
-export const LoginWithAuth = withAuth(Login);
+export const LoginWithAuth = connect(
+  state => ({ isLoggedIn: state.auth.isLoggedIn }),
+  { logIn }
+)(Login);

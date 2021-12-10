@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Input } from '../components/index';
-import { withAuth } from '../auth/AuthContext';
+import { connect } from 'react-redux';
+import { logOut } from '../auth/actions';
 import circle from '../static/img/card/circle.svg';
 import chip from '../static/img/card/chip.svg';
 import mastercard from '../static/img/card/mastercard.svg';
@@ -88,7 +89,9 @@ class Profile extends React.Component {
                 <Profile.CardContent>
                   <Profile.CardColumn>
                     <Profile.CardCircle></Profile.CardCircle>
-                  <Profile.CardDate>{dataValue.slice(0, 2) + '/' + dataValue.slice(2, 4)}</Profile.CardDate>
+                    <Profile.CardDate>
+                      {dataValue.slice(0, 2) + '/' + dataValue.slice(2, 4)}
+                    </Profile.CardDate>
                   </Profile.CardColumn>
                   <Profile.CardColumn>
                     <Profile.CardNumber>{numberCard}</Profile.CardNumber>
@@ -101,7 +104,9 @@ class Profile extends React.Component {
               </Profile.Card>
             </Profile.DataItem>
           </Profile.Data>
-          <Profile.BlockButton><Button>Сохранить</Button></Profile.BlockButton>
+          <Profile.BlockButton>
+            <Button>Сохранить</Button>
+          </Profile.BlockButton>
         </Profile.Content>
       </Profile.Container>
     );
@@ -150,7 +155,7 @@ Profile.Data = styled.div`
   display: flex;
   gap: 99px;
 `;
-Profile.BlockButton = styled.div `
+Profile.BlockButton = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -203,4 +208,4 @@ Profile.MasterCard = styled.div`
   background: url(${mastercard}) no-repeat;
 `;
 
-export const ProfilewithAuth = withAuth(Profile);
+export const ProfilewithAuth = connect(null, { logOut })(Profile);

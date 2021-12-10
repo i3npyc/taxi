@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import logo from '../../static/img/logo.svg';
-import { AuthContext } from '../../auth/AuthContext';
+import { useSelector } from 'react-redux';
 
 const Header = ({ navigateTo }) => {
-  const context = useContext(AuthContext);
-  const { isLoggedIn, logOut } = context;
+  const { isLoggedIn, logOut } = useSelector(state => state.auth);
 
   const headerLogOut = () => {
     logOut();
@@ -44,7 +43,7 @@ const Header = ({ navigateTo }) => {
                   Карта
                 </Header.Link>
               </Header.ListItem>
-              {context.isLoggedIn ? (
+              {isLoggedIn ? (
                 <Header.ListItem>
                   <Header.Link onClick={headerLogOut}>Выйти</Header.Link>
                 </Header.ListItem>

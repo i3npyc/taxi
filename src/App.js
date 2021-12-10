@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Map, Registration } from './pages/index';
 import { Header } from './components/index';
 import { LoginWithAuth } from './pages/Login';
 import { ProfilewithAuth } from './pages/Profile';
-import { AuthContext } from './auth/AuthContext';
 import './App.css';
+import { useSelector } from 'react-redux';
 
 const App = () => {
-  const context = useContext(AuthContext);
+  const { isLoggedIn } = useSelector(state => state.auth);
   const [currentPage, setCurrentPage] = useState('login');
 
   const PAGES = {
@@ -17,7 +17,7 @@ const App = () => {
     registration: props => <Registration {...props} />
   };
   const navigateTo = page => {
-    if (context.isLoggedIn) {
+    if (isLoggedIn) {
       setCurrentPage(page);
     } else {
       setCurrentPage('login');
