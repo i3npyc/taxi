@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { CustomForm } from '../components/index';
 import { connect } from 'react-redux';
-import { logIn } from '../auth/actions'
+import { authenticate } from '../auth/actions'
 
 class Login extends React.Component {
   goToProfile = () => {
@@ -11,7 +11,7 @@ class Login extends React.Component {
   authenticate = e => {
     e.preventDefault();
     const { email, password } = e.target;
-    this.props.logIn(email.value, password.value);
+    this.props.authenticate(email.value, password.value);
   };
   render() {
     const listInput = [
@@ -45,5 +45,5 @@ Login.propTypes = {
 
 export const LoginWithAuth = connect(
   state => ({ isLoggedIn: state.auth.isLoggedIn }),
-  { logIn }
+  { authenticate }
 )(Login);
