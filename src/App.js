@@ -1,33 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Map, Registration } from './pages/index';
 import { Header } from './components/index';
 import { LoginWithAuth } from './pages/Login';
 import { ProfilewithAuth } from './pages/Profile';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { useSelector } from 'react-redux';
 
 const App = () => {
   const { isLoggedIn } = useSelector(state => state.auth);
-  const [currentPage, setCurrentPage] = useState('login');
 
-  const PAGES = {
-    login: props => <LoginWithAuth {...props} />,
-    map: props => <Map {...props} />,
-    profile: props => <ProfilewithAuth {...props} />,
-    registration: props => <Registration {...props} />
-  };
-  const navigateTo = page => {
-    if (isLoggedIn) {
-      setCurrentPage(page);
-    } else {
-      setCurrentPage('login');
-    }
-  };
   return (
     <div className="App">
-      <Header navigateTo={navigateTo} />
+      <Header />
       <main>
-        <section>{PAGES[currentPage]({ navigate: navigateTo })}</section>
+        <section>
+          <Routes>
+            <Route path="/login" element={<LoginWithAuth />} />
+            <Route path="/" element={<Map />} />
+            <Route path="/profile" element={<ProfilewithAuth />} />
+            <Route path="/registration" element={<Registration />} />
+          </Routes>
+        </section>
       </main>
     </div>
   );

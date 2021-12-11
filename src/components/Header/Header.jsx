@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import logo from '../../static/img/logo.svg';
+import { Link } from 'react-router-dom';
 import { logOut } from '../../auth/actions';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -10,7 +11,7 @@ const Header = ({ navigateTo }) => {
   const dispatch = useDispatch();
 
   const headerLogOut = () => {
-    dispatch(logOut())
+    dispatch(logOut());
     navigateTo('login');
   };
   return (
@@ -30,19 +31,19 @@ const Header = ({ navigateTo }) => {
             <Header.List>
               {!isLoggedIn && (
                 <Header.ListItem>
-                  <Header.Link onClick={() => navigateTo('login')}>
-                    Логин
+                  <Header.Link>
+                    <Link to="/login">Логин</Link>
                   </Header.Link>
                 </Header.ListItem>
               )}
               <Header.ListItem>
-                <Header.Link onClick={() => navigateTo('profile')}>
-                  Профиль
+                <Header.Link>
+                  <Link to="/profile">Профиль</Link>
                 </Header.Link>
               </Header.ListItem>
               <Header.ListItem>
-                <Header.Link onClick={() => navigateTo('map')}>
-                  Карта
+                <Header.Link>
+                  <Link to="/">Карта</Link>
                 </Header.Link>
               </Header.ListItem>
               {isLoggedIn ? (
