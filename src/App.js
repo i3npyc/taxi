@@ -4,22 +4,34 @@ import { Header } from './components/index';
 import { LoginWithAuth } from './pages/Login';
 import { ProfilewithAuth } from './pages/Profile';
 import { Routes, Route } from 'react-router-dom';
+import { PrivateRoute } from './components/Auth/PrivateRoute';
 import './App.css';
-import { useSelector } from 'react-redux';
 
 const App = () => {
-  const { isLoggedIn } = useSelector(state => state.auth);
-
   return (
     <div className="App">
       <Header />
       <main>
         <section>
           <Routes>
-            <Route path="/login" element={<LoginWithAuth />} />
-            <Route path="/" element={<Map />} />
-            <Route path="/profile" element={<ProfilewithAuth />} />
-            <Route path="/registration" element={<Registration />} />
+            <Route exact path="/login" element={<LoginWithAuth />} />
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Map />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile/*"
+              element={
+                <PrivateRoute>
+                  <ProfilewithAuth />
+                </PrivateRoute>
+              }
+            />
+            <Route exact path="/registration" element={<Registration />} />
           </Routes>
         </section>
       </main>

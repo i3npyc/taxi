@@ -5,14 +5,14 @@ import logo from '../../static/img/logo.svg';
 import { Link } from 'react-router-dom';
 import { logOut } from '../../auth/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-const Header = ({ navigateTo }) => {
+const Header = () => {
   const { isLoggedIn } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   const headerLogOut = () => {
     dispatch(logOut());
-    navigateTo('login');
   };
   return (
     <Header.Container>
@@ -21,8 +21,8 @@ const Header = ({ navigateTo }) => {
           <Header.Img
             onClick={
               !isLoggedIn
-                ? () => navigateTo('login')
-                : () => navigateTo('profile')
+                ? () => <Navigate to="/login" />
+                : () => <Navigate to="/" />
             }
           ></Header.Img>
         </Header.Column>
@@ -52,8 +52,8 @@ const Header = ({ navigateTo }) => {
                 </Header.ListItem>
               ) : (
                 <Header.ListItem>
-                  <Header.Link onClick={() => navigateTo('registration')}>
-                    Регистрация
+                  <Header.Link>
+                    <Link to="/registration">Регистрация</Link>
                   </Header.Link>
                 </Header.ListItem>
               )}
@@ -97,9 +97,14 @@ Header.ListItem = styled.li`
     margin: 0px;
   }
 `;
-Header.Link = styled.button`
-  font-size: 21px;
+Header.Link = styled.div`
+  font-size: 20px;
   color: #ffffff;
+  a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #ffffff;
+  }
 `;
 
 export default Header;

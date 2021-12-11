@@ -2,12 +2,10 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { CustomForm } from '../components/index';
 import { connect } from 'react-redux';
-import { authenticate } from '../auth/actions'
+import { authenticate } from '../auth/actions';
+import { Navigate } from 'react-router-dom'
 
 class Login extends React.Component {
-  goToProfile = () => {
-    this.props.navigate('profile');
-  };
   authenticate = e => {
     e.preventDefault();
     const { email, password } = e.target;
@@ -21,9 +19,7 @@ class Login extends React.Component {
     return (
       <>
         {this.props.isLoggedIn ? (
-          <p>
-            <button onClick={this.goToProfile}>go to profile</button>
-          </p>
+          <Navigate to="/profile"/>
         ) : (
           <CustomForm
             title="Войти"
