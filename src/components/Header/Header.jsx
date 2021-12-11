@@ -102,8 +102,8 @@ Header.Link = styled.div`
   color: #ffffff;
   a {
     text-decoration: none;
-    font-size: 20px;
-    color: #ffffff;
+    font-size: inherit;
+    color: inherit;
   }
 `;
 
