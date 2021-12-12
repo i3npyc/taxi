@@ -1,5 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
-import { composeEnhancers, middleware } from './middleware';
+import { composeEnhancers, middleware, sagaMiddleware } from './middleware';
+import { rootSaga } from './rootSaga';
 import { rootReducer } from './rootReducer';
 
 const store = () => {
@@ -7,6 +8,7 @@ const store = () => {
     rootReducer,
     composeEnhancers(applyMiddleware(...middleware))
   );
+  sagaMiddleware.run(rootSaga);
   return mainStore;
 };
 

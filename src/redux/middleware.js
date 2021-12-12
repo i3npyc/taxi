@@ -1,9 +1,11 @@
-import { compose } from "redux";
-import { authMiddleware } from "../auth/authMiddleware";
+import { compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
+const sagaMiddleware = createSagaMiddleware();
 const isBrowser = process.browser;
-const devtools = isBrowser && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+const devtools =
+  isBrowser && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers = devtools ? devtools : compose;
-const middleware = [authMiddleware];
+const middleware = [sagaMiddleware];
 
-export { composeEnhancers, middleware }
+export { composeEnhancers, middleware, sagaMiddleware };
