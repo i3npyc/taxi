@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Input } from '../components/index';
+import { Button, Input, Card } from '../components/index';
 import { connect } from 'react-redux';
 import { logOut } from '../auth/actions';
-import circle from '../static/img/card/circle.svg';
-import chip from '../static/img/card/chip.svg';
-import mastercard from '../static/img/card/mastercard.svg';
+import { card } from '../card/actions';
 
 class Profile extends React.Component {
   state = {
@@ -17,13 +15,18 @@ class Profile extends React.Component {
   hendlerChange = e => {
     switch (e.target.name) {
       case 'number':
-        this.setState({ numberCardValue: e.target.value });
+        this.setState({
+          numberCardValue: e.target.value.match(/.{1,4}/g).join(' ')
+        });
         break;
       case 'name':
         this.setState({ nameValue: e.target.value });
         break;
       case 'data':
-        this.setState({ dataValue: e.target.value });
+        this.setState({
+          dataValue:
+            e.target.value.slice(0, 2) + '/' + e.target.value.slice(2.4)
+        });
         break;
       case 'cvc':
         this.setState({ cvcValue: e.target.value });
@@ -32,11 +35,17 @@ class Profile extends React.Component {
         return;
     }
   };
+  submitCard = () => {
+    this.props.card(
+      this.state.numberCardValue,
+      this.state.dataValue,
+      this.state.nameValue,
+      this.state.cvcValue
+    );
+  };
   numberValue = value => value.replace(/[^\d]/g, '');
   render() {
     const { numberCardValue, nameValue, dataValue, cvcValue } = this.state;
-    let numberCard = numberCardValue.replace(/[^\d]/g, '').substring(0, 16);
-    numberCard = numberCard !== '' ? numberCard.match(/.{1,4}/g).join(' ') : '';
     return (
       <Profile.Container>
         <Profile.Content>
@@ -46,66 +55,52 @@ class Profile extends React.Component {
           </Profile.Header>
           <Profile.Data>
             <Profile.DataItem>
-              <Input
-                hendlerChange={this.hendlerChange}
-                value={nameValue.toLocaleUpperCase()}
-                name="name"
-                type="text"
-                black
-                label="Имя владельца"
-              />
-              <Input
-                hendlerChange={this.hendlerChange}
-                value={this.numberValue(numberCardValue)}
-                type="text"
-                black
-                label="Номер карты"
-                maxlength="16"
-                name="number"
-              />
-              <Profile.InputBlock>
+              <Profile.Form>
                 <Input
                   hendlerChange={this.hendlerChange}
-                  maxlength="4"
+                  value={nameValue.toLocaleUpperCase()}
+                  name="name"
                   type="text"
-                  value={this.numberValue(dataValue)}
-                  name="data"
                   black
-                  label="MM/YY"
+                  label="Имя владельца"
                 />
                 <Input
                   hendlerChange={this.hendlerChange}
-                  maxlength="3"
+                  value={this.numberValue(numberCardValue)}
                   type="text"
-                  value={this.numberValue(cvcValue)}
-                  name="cvc"
                   black
-                  label="CVC"
+                  label="Номер карты"
+                  maxlength="16"
+                  name="number"
                 />
-              </Profile.InputBlock>
+                <Profile.InputBlock>
+                  <Input
+                    hendlerChange={this.hendlerChange}
+                    maxlength="4"
+                    type="text"
+                    value={this.numberValue(dataValue)}
+                    name="data"
+                    black
+                    label="MM/YY"
+                  />
+                  <Input
+                    hendlerChange={this.hendlerChange}
+                    maxlength="3"
+                    type="text"
+                    value={this.numberValue(cvcValue)}
+                    name="cvc"
+                    black
+                    label="CVC"
+                  />
+                </Profile.InputBlock>
+              </Profile.Form>
             </Profile.DataItem>
             <Profile.DataItem>
-              <Profile.Card>
-                <Profile.CardContent>
-                  <Profile.CardColumn>
-                    <Profile.CardCircle></Profile.CardCircle>
-                    <Profile.CardDate>
-                      {dataValue.slice(0, 2) + '/' + dataValue.slice(2, 4)}
-                    </Profile.CardDate>
-                  </Profile.CardColumn>
-                  <Profile.CardColumn>
-                    <Profile.CardNumber>{numberCard}</Profile.CardNumber>
-                  </Profile.CardColumn>
-                  <Profile.CardColumn>
-                    <Profile.Chip></Profile.Chip>
-                    <Profile.MasterCard></Profile.MasterCard>
-                  </Profile.CardColumn>
-                </Profile.CardContent>
-              </Profile.Card>
+              <Card dataValue={dataValue} numberCard={numberCardValue} />
             </Profile.DataItem>
           </Profile.Data>
           <Profile.BlockButton>
-            <Button>Сохранить</Button>
+            <Button onClick={this.submitCard}>Сохранить</Button>
           </Profile.BlockButton>
         </Profile.Content>
       </Profile.Container>
@@ -162,50 +157,10 @@ Profile.BlockButton = styled.div`
 Profile.DataItem = styled.div`
   flex: 0 1 50%;
 `;
+Profile.Form = styled.form``;
 Profile.InputBlock = styled.div`
   display: flex;
   gap: 35px;
 `;
-Profile.Card = styled.div`
-  width: 100%;
-  padding: 16px 16px 16px 27px;
-  height: 182px;
-  background: #ffffff;
-  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-`;
-Profile.CardContent = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-Profile.CardColumn = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-Profile.CardCircle = styled.div`
-  width: 33px;
-  height: 33px;
-  background: url(${circle}) no-repeat;
-`;
-Profile.CardDate = styled.div`
-  font-size: 12px;
-  line-height: 14px;
-`;
-Profile.CardNumber = styled.div`
-  font-size: 21px;
-  line-height: 25px;
-`;
-Profile.Chip = styled.div`
-  width: 30px;
-  height: 30px;
-  background: url(${chip}) no-repeat;
-`;
-Profile.MasterCard = styled.div`
-  width: 46px;
-  height: 28px;
-  background: url(${mastercard}) no-repeat;
-`;
 
-export const ProfilewithAuth = connect(null, { logOut })(Profile);
+export const ProfilewithAuth = connect(null, { logOut, card })(Profile);

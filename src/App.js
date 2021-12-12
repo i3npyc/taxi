@@ -1,8 +1,9 @@
 import React from 'react';
-import { Map, Registration } from './pages/index';
 import { Header } from './components/index';
+import Map from './pages/Map';
 import { LoginWithAuth } from './pages/Login';
 import { ProfilewithAuth } from './pages/Profile';
+import { RegistrationWithAuth } from './pages/Registration';
 import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute } from './components/Auth/PrivateRoute';
 import './App.css';
@@ -24,14 +25,18 @@ const App = () => {
               }
             />
             <Route
-              path="/profile/*"
+              path="/profile"
               element={
                 <PrivateRoute>
                   <ProfilewithAuth />
                 </PrivateRoute>
               }
             />
-            <Route exact path="/registration" element={<Registration />} />
+            <Route
+              exact
+              path="/registration"
+              element={<RegistrationWithAuth />}
+            />
           </Routes>
         </section>
       </main>

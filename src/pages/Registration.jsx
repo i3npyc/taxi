@@ -1,41 +1,46 @@
 import React from 'react';
-import { Map } from './index';
+import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { CustomForm } from '../components/index';
+import { registration } from '../registration/action';
 
 class Registration extends React.Component {
-  state = { currentPage: '' };
-
-  prevent = e => {
+  setRegistration = e => {
     e.preventDefault();
-  };
-  navigateTo = page => {
-    this.setState({ currentPage: page });
+    const { email, password, name, surname } = e.target;
+    this.props.registration(
+      email.value,
+      password.value,
+      name.value,
+      surname.value
+    );
   };
   render() {
-    const { currentPage } = this.state;
-    const PAGE = { map: <Map /> };
     const listInput = [
       { id: 1, type: 'email', name: 'email', label: 'Email*' },
       { id: 2, type: 'text', name: 'name', label: 'Как вас зовут?*' },
-      { id: 3, type: 'password', name: 'password', label: 'Придумайте пароль*' }
+      { id: 3, type: 'test', name: 'surname', label: 'Ваша фамилия*' },
+      { id: 4, type: 'password', name: 'password', label: 'Придумайте пароль*' }
     ];
     return (
       <>
-        {currentPage === '' ? (
+        {this.props.isLoggedIn ? (
+          <Navigate to="/profile" />
+        ) : (
           <CustomForm
             register
             title="Регистрация"
             buttonText="Зарегистрироваться"
             listInput={listInput}
-            navigateTo={this.navigateTo}
-            prevent={this.prevent}
+            onSubmit={this.setRegistration}
           />
-        ) : (
-          <div>{PAGE[currentPage]}</div>
         )}
       </>
     );
   }
 }
 
-export default Registration;
+export const RegistrationWithAuth = connect(
+  state => ({ isLoggedIn: state.auth.isLoggedIn }),
+  { registration }
+)(Registration);

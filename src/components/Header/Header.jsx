@@ -12,6 +12,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const headerLogOut = () => {
+    localStorage.removeItem('access_token');
     dispatch(logOut());
   };
   return (
@@ -100,6 +101,7 @@ Header.ListItem = styled.li`
 Header.Link = styled.div`
   font-size: 20px;
   color: #ffffff;
+  cursor: pointer;
   a {
     text-decoration: none;
     font-size: inherit;
