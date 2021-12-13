@@ -1,6 +1,6 @@
-import { call, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { ServiceApi } from '../service/api';
-import { CARD } from './actions';
+import { CARD, payment } from './actions';
 
 export function* cardSaga(action) {
   const { number, expiryDate, name, cvc } = action.payload;
@@ -13,6 +13,7 @@ export function* cardSaga(action) {
   };
   const { data } = yield call(ServiceApi.card, card);
   if (data?.success) {
+    yield put(payment())
     localStorage.setItem('profile', card);
   }
 }

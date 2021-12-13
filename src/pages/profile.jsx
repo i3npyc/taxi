@@ -4,6 +4,7 @@ import { Button, Input, Card } from '../components/index';
 import { connect } from 'react-redux';
 import { logOut } from '../auth/actions';
 import { card } from '../card/actions';
+import ProfileComplited from '../components/Profile/ProfileComplited';
 
 class Profile extends React.Component {
   state = {
@@ -16,7 +17,11 @@ class Profile extends React.Component {
     switch (e.target.name) {
       case 'number':
         this.setState({
-          numberCardValue: e.target.value.match(/.{1,4}/g).join(' ')
+          numberCardValue: this.numberValue(e.target.value)
+            ? this.numberValue(e.target.value)
+                .match(/.{1,4}/g)
+                .join(' ')
+            : ''
         });
         break;
       case 'name':
@@ -24,8 +29,11 @@ class Profile extends React.Component {
         break;
       case 'data':
         this.setState({
-          dataValue:
-            e.target.value.slice(0, 2) + '/' + e.target.value.slice(2.4)
+          dataValue: this.numberValue(e.target.value)
+            ? this.numberValue(e.target.value)
+                .match(/.{1,2}/g)
+                .join('/')
+            : ''
         });
         break;
       case 'cvc':
@@ -48,61 +56,65 @@ class Profile extends React.Component {
     const { numberCardValue, nameValue, dataValue, cvcValue } = this.state;
     return (
       <Profile.Container>
-        <Profile.Content>
-          <Profile.Header>
-            <Profile.Title>Профиль</Profile.Title>
-            <Profile.Label>Введите платежные данные</Profile.Label>
-          </Profile.Header>
-          <Profile.Data>
-            <Profile.DataItem>
-              <Profile.Form>
-                <Input
-                  hendlerChange={this.hendlerChange}
-                  value={nameValue.toLocaleUpperCase()}
-                  name="name"
-                  type="text"
-                  black
-                  label="Имя владельца"
-                />
-                <Input
-                  hendlerChange={this.hendlerChange}
-                  value={this.numberValue(numberCardValue)}
-                  type="text"
-                  black
-                  label="Номер карты"
-                  maxlength="16"
-                  name="number"
-                />
-                <Profile.InputBlock>
+        {this.props.success ? (
+          <ProfileComplited />
+        ) : (
+          <Profile.Content>
+            <Profile.Header>
+              <Profile.Title>Профиль</Profile.Title>
+              <Profile.Label>Введите платежные данные</Profile.Label>
+            </Profile.Header>
+            <Profile.Data>
+              <Profile.DataItem>
+                <Profile.Form>
                   <Input
                     hendlerChange={this.hendlerChange}
-                    maxlength="4"
+                    value={nameValue.toLocaleUpperCase()}
+                    name="name"
                     type="text"
-                    value={this.numberValue(dataValue)}
-                    name="data"
                     black
-                    label="MM/YY"
+                    label="Имя владельца"
                   />
                   <Input
                     hendlerChange={this.hendlerChange}
-                    maxlength="3"
+                    value={numberCardValue}
                     type="text"
-                    value={this.numberValue(cvcValue)}
-                    name="cvc"
                     black
-                    label="CVC"
+                    label="Номер карты"
+                    maxlength="19"
+                    name="number"
                   />
-                </Profile.InputBlock>
-              </Profile.Form>
-            </Profile.DataItem>
-            <Profile.DataItem>
-              <Card dataValue={dataValue} numberCard={numberCardValue} />
-            </Profile.DataItem>
-          </Profile.Data>
-          <Profile.BlockButton>
-            <Button onClick={this.submitCard}>Сохранить</Button>
-          </Profile.BlockButton>
-        </Profile.Content>
+                  <Profile.InputBlock>
+                    <Input
+                      hendlerChange={this.hendlerChange}
+                      maxlength="5"
+                      type="text"
+                      value={dataValue}
+                      name="data"
+                      black
+                      label="MM/YY"
+                    />
+                    <Input
+                      hendlerChange={this.hendlerChange}
+                      maxlength="3"
+                      type="text"
+                      value={this.numberValue(cvcValue)}
+                      name="cvc"
+                      black
+                      label="CVC"
+                    />
+                  </Profile.InputBlock>
+                </Profile.Form>
+              </Profile.DataItem>
+              <Profile.DataItem>
+                <Card dataValue={dataValue} numberCard={numberCardValue} />
+              </Profile.DataItem>
+            </Profile.Data>
+            <Profile.BlockButton>
+              <Button onClick={this.submitCard}>Сохранить</Button>
+            </Profile.BlockButton>
+          </Profile.Content>
+        )}
       </Profile.Container>
     );
   }
@@ -163,4 +175,10 @@ Profile.InputBlock = styled.div`
   gap: 35px;
 `;
 
-export const ProfilewithAuth = connect(null, { logOut, card })(Profile);
+export const ProfilewithAuth = connect(
+  state => ({ success: state.payment.success }),
+  {
+    logOut,
+    card
+  }
+)(Profile);
