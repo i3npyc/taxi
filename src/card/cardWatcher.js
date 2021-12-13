@@ -14,7 +14,6 @@ export function* cardSaga(action) {
   const { data } = yield call(ServiceApi.card, card);
   if (data?.success) {
     yield put(payment())
-    localStorage.setItem('profile', card);
   }
 }
 

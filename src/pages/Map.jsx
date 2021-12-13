@@ -1,6 +1,7 @@
 import React from 'react';
 import mapboxGl from 'mapbox-gl';
 import styled from 'styled-components';
+import MapCard from '../components/elements/MapCard/MapCard';
 
 class Map extends React.Component {
   map = null;
@@ -24,6 +25,7 @@ class Map extends React.Component {
     return (
       <Map.Wrapper>
         <Map.Map ref={this.mapContainer}></Map.Map>
+        <MapCard/>
       </Map.Wrapper>
     );
   }
