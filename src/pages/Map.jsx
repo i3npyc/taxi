@@ -2,6 +2,8 @@ import React from 'react';
 import mapboxGl from 'mapbox-gl';
 import styled from 'styled-components';
 import MapCard from '../components/elements/MapCard/MapCard';
+import { getAddresList } from '../map/actions';
+import { connect } from 'react-redux';
 
 class Map extends React.Component {
   map = null;
@@ -17,6 +19,11 @@ class Map extends React.Component {
       center: [30.3056504, 59.9429126],
       zoom: 10
     });
+
+    this.props.getAddresList();
+    if(this.props.addresses) {
+      console.log(this.props.addresses)
+    }
   }
   componentWillUnmount() {
     this.map.remove();
@@ -25,7 +32,7 @@ class Map extends React.Component {
     return (
       <Map.Wrapper>
         <Map.Map ref={this.mapContainer}></Map.Map>
-        <MapCard/>
+        { this.props.addresses.length ? <MapCard selectLabel={this.props.addresses} /> : null}
       </Map.Wrapper>
     );
   }
@@ -44,4 +51,7 @@ Map.Map = styled.div`
   bottom: 0;
 `;
 
-export default Map;
+export const MapContainer = connect(
+  state => ({ addresses: state.map.addresses }),
+  { getAddresList }
+)(Map);

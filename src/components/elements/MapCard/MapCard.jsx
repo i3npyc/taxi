@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 
-const MapCard = () => {
+const MapCard = ({ selectLabel }) => {
+  const [select, setSelect] = useState([])
+
   const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+    { value: 'value', label: selectLabel[0] },
+    { value: 'value2', label: selectLabel[1] },
+    { value: 'value3', label: selectLabel[2] },
+    { value: 'value4', label: selectLabel[3] }
   ];
-  let isClearable = true
+  const handlerChange = e => {
+    if (e) {
+      let selected = options.filter(option => option.value !== e.value);
+      setSelect(selected)
+    }
+  };
   return (
     <MapCard.Container>
-      <Select options={options} isClearable />
-      <Select options={options} isClearable/>
+      <Select onChange={handlerChange} options={options} isClearable />
+      <Select onChange={handlerChange} options={select} isClearable />
     </MapCard.Container>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header } from './components/index';
-import Map from './pages/Map';
+import { MapContainer } from './pages/Map';
 import { LoginWithAuth } from './pages/Login';
 import { ProfilewithAuth } from './pages/Profile';
 import { RegistrationWithAuth } from './pages/Registration';
@@ -20,7 +20,7 @@ const App = () => {
               path="/"
               element={
                 <PrivateRoute>
-                  <Map />
+                  <MapContainer />
                 </PrivateRoute>
               }
             />
