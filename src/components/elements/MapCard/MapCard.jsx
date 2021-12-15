@@ -19,8 +19,8 @@ const MapCard = ({ selectLabel }) => {
   };
   return (
     <MapCard.Container>
-      <Select onChange={handlerChange} options={options} isClearable />
-      <Select onChange={handlerChange} options={select} isClearable />
+      <Select onChange={handlerChange} options={select.length ? select : options} isClearable />
+      <Select onChange={handlerChange} options={select.length ? select : options} isClearable />
     </MapCard.Container>
   );
 };
