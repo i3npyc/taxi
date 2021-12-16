@@ -3,12 +3,14 @@ import { authWatcher } from '../auth/authWatcher';
 import { cardWatcher } from '../card/cardWatcher';
 import { registrationWatcher } from '../registration/registrationWatcher';
 import { mapWatcher } from '../map/mapWatcher';
+import { routeWatchet } from '../map/mapWatcher';
 
 export function* rootSaga() {
   yield all([
     authWatcher(),
     registrationWatcher(),
     cardWatcher(),
-    mapWatcher()
+    mapWatcher(),
+    routeWatchet()
   ]);
 }

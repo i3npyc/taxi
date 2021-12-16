@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import MapCard from '../components/elements/MapCard/MapCard';
 import { getAddresList } from '../map/actions';
 import { connect } from 'react-redux';
+import { drawRoute } from '../map/functions/drawRoute';
 
 class Map extends React.Component {
   map = null;
@@ -21,18 +22,19 @@ class Map extends React.Component {
     });
 
     this.props.getAddresList();
-    if(this.props.addresses) {
-      console.log(this.props.addresses)
-    }
   }
   componentWillUnmount() {
     this.map.remove();
   }
   render() {
+    if (this.props.coordinates.length)
+      drawRoute(this.map, this.props.coordinates);
     return (
       <Map.Wrapper>
         <Map.Map ref={this.mapContainer}></Map.Map>
-        { this.props.addresses.length ? <MapCard selectLabel={this.props.addresses} /> : null}
+        {this.props.addresses.length ? (
+          <MapCard selectLabel={this.props.addresses} />
+        ) : null}
       </Map.Wrapper>
     );
   }
@@ -52,6 +54,9 @@ Map.Map = styled.div`
 `;
 
 export const MapContainer = connect(
-  state => ({ addresses: state.map.addresses }),
+  state => ({
+    addresses: state.map.addresses,
+    coordinates: state.map.coordinates
+  }),
   { getAddresList }
 )(Map);
