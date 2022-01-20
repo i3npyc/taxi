@@ -1,14 +1,13 @@
 import React from 'react';
 
+import styled from 'styled-components';
+
 import { connect } from 'react-redux';
 
 import { logOut } from '../../modules/auth/actions';
 import { card, notpayment } from '../../modules/card/actions';
 
-import styled from 'styled-components';
-
-import ProfileComplited from '../../components/Profile/ProfileComplited';
-import ProfileCard from '../../components/Profile/ProfileCard';
+import { ProfileComplited, ProfileCard } from '../../components/index';
 
 class Profile extends React.Component {
   state = {

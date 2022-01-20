@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 
-import { Input, Button } from '../../index';
+import { Input, Button } from '../index';
 
-import loader from '../../../static/img/loader.svg';
+import loader from '../../static/img/loader.svg';
 
 const CustomForm = ({
   title,

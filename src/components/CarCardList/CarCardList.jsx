@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import CarCard from './CarCard';
+import { CarCard } from '../index';
 
 const CarCardList = ({ cars }) => {
   const [activeCar, setActiveCar] = useState(1);

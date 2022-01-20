@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import circle from '../../../static/img/card/circle.svg';
-import chip from '../../../static/img/card/chip.svg';
-import mastercard from '../../../static/img/card/mastercard.svg';
+
+import circle from '../../static/img/card/circle.svg';
+import chip from '../../static/img/card/chip.svg';
+import mastercard from '../../static/img/card/mastercard.svg';
 
 const Card = ({ dataValue, numberCard }) => {
   return (

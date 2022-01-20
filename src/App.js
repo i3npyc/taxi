@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Routes, Route } from 'react-router-dom';
 
-import { PrivateRoute } from './components/Auth/PrivateRoute';
-import { Header } from './components/index';
+import { PrivateRoute, Header } from './components/index';
 
 import { MapContainer } from './pages/Map/Map';
 import { LoginWithAuth } from './pages/Login/Login';

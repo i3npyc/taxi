@@ -1,5 +1,11 @@
+export { default as PrivateRoute } from './Auth/PrivateRoute';
 export { default as Header } from './Header/Header';
-export { default as Button } from './elements/Button/Button';
-export { default as Input } from './elements/Input/Input';
-export { default as CustomForm } from './elements/CustomForm/CustomForm';
-export { default as Card } from './elements/Card/Card';
+export { default as Button } from './Button/Button';
+export { default as Input } from './Input/Input';
+export { default as CustomForm } from './CustomForm/CustomForm';
+export { default as Card } from './Card/Card';
+export { default as MapCard } from './MapCard/MapCard';
+export { default as CarCardList } from './CarCardList/CarCardList';
+export { default as CarCard } from './CarCard/CarCard';
+export { default as ProfileCard } from './ProfileCard/ProfileCard';
+export { default as ProfileComplited } from './ProfileComplited/ProfileComplited';
