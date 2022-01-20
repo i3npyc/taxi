@@ -13,8 +13,12 @@ export function* mapWatcher() {
 
 export function* routeSaga(action) {
   const { address1, address2 } = action.payload;
-  const { data } = yield call(ServiceApi.getRoute, address1?.label, address2?.label);
-  yield put(setRoute(data))
+  const { data } = yield call(
+    ServiceApi.getRoute,
+    address1?.label,
+    address2?.label
+  );
+  yield put(setRoute(data));
 }
 
 export function* routeWatchet() {

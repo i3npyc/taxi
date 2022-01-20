@@ -1,4 +1,4 @@
-import { DELETE_ROUTE, SET_ADDRES_LIST, SET_ROUTE } from './actions';
+import { SET_ADDRES_LIST, SET_ROUTE } from './actions';
 
 const initialState = {
   addresses: [],
@@ -11,8 +11,6 @@ export const mapReducer = (state = initialState, action) => {
       return { ...state, addresses: action.payload };
     case SET_ROUTE:
       return { ...state, coordinates: action.payload };
-    case DELETE_ROUTE:
-      return {...state, coordinates: []}
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 export const drawRoute = (map, coordinates) => {
-  map.flyTo({
+  map?.flyTo({
     center: coordinates[0],
     zoom: 15
   });

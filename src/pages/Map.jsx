@@ -1,9 +1,12 @@
 import React from 'react';
 import mapboxGl from 'mapbox-gl';
-import styled from 'styled-components';
-import MapCard from '../components/elements/MapCard/MapCard';
-import { getAddresList } from '../map/actions';
 import { connect } from 'react-redux';
+
+import styled from 'styled-components';
+
+import MapCard from '../components/elements/MapCard/MapCard';
+
+import { getAddresList } from '../map/actions';
 import { drawRoute } from '../map/functions/drawRoute';
 
 class Map extends React.Component {
@@ -29,11 +32,15 @@ class Map extends React.Component {
   render() {
     if (this.props.coordinates.length)
       drawRoute(this.map, this.props.coordinates);
+
     return (
       <Map.Wrapper>
         <Map.Map ref={this.mapContainer}></Map.Map>
         {this.props.addresses.length ? (
-          <MapCard selectLabel={this.props.addresses} />
+          <MapCard
+            map={this.map}
+            selectLabel={this.props.addresses}
+          />
         ) : null}
       </Map.Wrapper>
     );

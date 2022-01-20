@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { CustomForm } from '../components/index';
 import { connect } from 'react-redux';
 import { authenticate } from '../auth/actions';
-import { Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
 
 class Login extends React.Component {
   authenticate = e => {
@@ -12,6 +12,8 @@ class Login extends React.Component {
     this.props.authenticate(email.value, password.value);
   };
   render() {
+    const { loginError, isFetching } = this.props
+
     const listInput = [
       { id: 1, type: 'email', name: 'email', label: 'Email' },
       { id: 2, type: 'password', name: 'password', label: 'Пароль' }
@@ -19,13 +21,15 @@ class Login extends React.Component {
     return (
       <>
         {this.props.isLoggedIn ? (
-          <Navigate to="/profile"/>
+          <Navigate to="/profile" />
         ) : (
           <CustomForm
             title="Войти"
             buttonText="Войти"
             listInput={listInput}
             onSubmit={this.authenticate}
+            error={loginError}
+            isFetching={isFetching}
           />
         )}
       </>
@@ -40,6 +44,10 @@ Login.propTypes = {
 };
 
 export const LoginWithAuth = connect(
-  state => ({ isLoggedIn: state.auth.isLoggedIn }),
+  state => ({
+    isLoggedIn: state.auth.isLoggedIn,
+    loginError: state.auth.loginError,
+    isFetching: state.auth.isFetching
+  }),
   { authenticate }
 )(Login);

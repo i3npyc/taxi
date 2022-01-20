@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import styled from 'styled-components';
-import { deleteRoute, getRoute } from '../../../map/actions';
+
+import { getRoute } from '../../../map/actions';
+
 import Select from 'react-select';
 import Button from '../Button/Button';
-import CarCard from './CarCard';
+import CarCardList from './CarCardList';
+
 import carOne from '../../../static/img/mapCard/auto01.png';
 import carTwo from '../../../static/img/mapCard/auto02.png';
 import carThree from '../../../static/img/mapCard/auto03.png';
 
-const MapCard = ({ selectLabel }) => {
+const MapCard = ({ selectLabel, map }) => {
   const [select, setSelect] = useState([]);
   const [addresses, setAddresses] = useState({
     address1: {
@@ -21,6 +25,7 @@ const MapCard = ({ selectLabel }) => {
       value: ''
     }
   });
+  const [isComplitedSend, setIsComplitedSend] = useState(false);
   const dispatch = useDispatch();
 
   const options = [
@@ -38,16 +43,21 @@ const MapCard = ({ selectLabel }) => {
       setAddresses(newAdresses);
     }
   };
-  const sendAddresses = e => {
-    e.preventDefault();
-    if (addresses.address1.label.length && addresses.address2.label.length) {
+  const sendAddresses = () => {
+    if (
+      addresses &&
+      addresses.address1.label.length &&
+      addresses.address2.label.length
+    ) {
       dispatch(getRoute(addresses));
-      dispatch(deleteRoute());
-      console.log('complited');
-      // setAddresses((state) => {
-      //   console.log(state)
-      // })
+      setIsComplitedSend(true);
     }
+  };
+  const cleanRoute = () => {
+    setIsComplitedSend(false);
+    setAddresses(null);
+    map.removeLayer('route');
+    map.removeSource('route');
   };
 
   const carsList = [
@@ -56,45 +66,51 @@ const MapCard = ({ selectLabel }) => {
     { id: 3, type: 'Бизнес', price: '300 ₽', img: carThree }
   ];
 
-  const heandleAuto = (type) => {
-    console.log(type)
-  }
-
   return (
     <MapCard.Container>
       <MapCard.Body>
-        <MapCard.Form onSubmit={sendAddresses}>
-          <MapCard.Select>
-            <Select
-              onChange={e => handlerChange(e, 'address1')}
-              options={select.length ? select : options}
-              isClearable
-              value={addresses?.address1}
-            />
-          </MapCard.Select>
-          <MapCard.Select>
-            <Select
-              onChange={e => handlerChange(e, 'address2')}
-              options={select.length ? select : options}
-              isClearable
-              value={addresses?.address2}
-            />
-          </MapCard.Select>
-        </MapCard.Form>
-        <MapCard.AutoContainer>
-          <MapCard.AutoBody>
-            {carsList.map(car => (
-              <CarCard
-                onClick={heandleAuto}
-                key={car?.id}
-                type={car?.type}
-                price={car?.price}
-                img={car?.img}
-              />
-            ))}
-          </MapCard.AutoBody>
-          <Button width="100%">Заказать</Button>
-        </MapCard.AutoContainer>
+        {!isComplitedSend ? (
+          <>
+            <MapCard.Form>
+              <MapCard.Select>
+                <Select
+                  placeholder="Откуда"
+                  onChange={e => handlerChange(e, 'address1')}
+                  options={select.length ? select : options}
+                  // isClearable={false}
+                  value={addresses?.address1}
+                />
+              </MapCard.Select>
+              <MapCard.Select>
+                <Select
+                  placeholder="Куда"
+                  onChange={e => handlerChange(e, 'address2')}
+                  options={select.length ? select : options}
+                  // isClearable={false}
+                  value={addresses?.address2}
+                />
+              </MapCard.Select>
+            </MapCard.Form>
+            <MapCard.AutoContainer>
+              <MapCard.AutoBody>
+                <CarCardList cars={carsList} />
+              </MapCard.AutoBody>
+              <Button onClick={sendAddresses} width="100%">
+                Заказать
+              </Button>
+            </MapCard.AutoContainer>
+          </>
+        ) : (
+          <MapCard.Complited>
+            <MapCard.ComplitedTitle>Заказ размещен</MapCard.ComplitedTitle>
+            <MapCard.ComplitedDescription>
+              Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.
+            </MapCard.ComplitedDescription>
+            <Button onClick={cleanRoute} width="100%">
+              Сделать новый заказ
+            </Button>
+          </MapCard.Complited>
+        )}
       </MapCard.Body>
     </MapCard.Container>
   );
@@ -127,6 +143,23 @@ MapCard.AutoBody = styled.div`
   margin: 0px 0px 30px 0px;
   display: flex;
   gap: 20px;
+`;
+
+MapCard.Complited = styled.div`
+  padding: 40px;
+  max-width: 486px;
+`;
+MapCard.ComplitedTitle = styled.div`
+  margin: 0px 0px 14px 0px;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 42px;
+`;
+MapCard.ComplitedDescription = styled.div`
+  margin: 0px 0px 30px 0px;
+  font-size: 18px;
+  line-height: 21px;
+  color: #7b7b7b;
 `;
 
 export default MapCard;

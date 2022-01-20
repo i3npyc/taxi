@@ -1,28 +1,17 @@
-import React  from 'react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const CarCard = ({ type, price, img }) => {
-
-  const ref = useRef()
-
-  const [test, setTest] = useState('Стандарт')
- 
-  const heandlerActive = (type) => {
-    setTest((prev => prev == type))
-    console.log(type)
-  }
-
-
+const CarCard = ({ id, type, price, img, activeCar, onSelect }) => {
   return (
-    <CarCard.Auto ref={ref} className={ test === type ? 'active' : ''} onClick={() => heandlerActive(type)}>
+    <CarCard.Auto
+      className={activeCar === id ? 'active' : ''}
+      onClick={() => onSelect(id)}
+    >
       <CarCard.AutoType>{type}</CarCard.AutoType>
       <CarCard.AutoLabelPrice>Стоимость</CarCard.AutoLabelPrice>
       <CarCard.AutoPrice>{price}</CarCard.AutoPrice>
       <CarCard.AutoCar>
-        <img src={img} alt="" />
+        <img style={{ width: 95 + 'px', height: 72 + 'px'}} src={img} alt="" />
       </CarCard.AutoCar>
     </CarCard.Auto>
   );
@@ -34,8 +23,15 @@ CarCard.Auto = styled.div`
   background: #ffffff;
   box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease 0s;
   &.active {
-    background: red;
+    opacity: 1;
+  }
+  &:hover {
+    opacity: 1
+
   }
 `;
 CarCard.AutoType = styled.p`

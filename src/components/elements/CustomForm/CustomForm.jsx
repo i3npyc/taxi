@@ -9,7 +9,9 @@ const CustomForm = ({
   buttonText,
   onSubmit,
   register,
-  onClick
+  onClick,
+  error,
+  isFetching
 }) => {
   return (
     <CustomForm.Container>
@@ -34,6 +36,7 @@ const CustomForm = ({
         <Button onClick={onClick} type="submit">
           {buttonText}
         </Button>
+        <CustomForm.Error>{error}</CustomForm.Error>
       </CustomForm.Form>
     </CustomForm.Container>
   );
@@ -82,6 +85,11 @@ CustomForm.Forget = styled.button`
   &:hover {
     color: #fdbf5a;
   }
+`;
+CustomForm.Error = styled.p`
+  margin: 20px 0px 0px 0px;
+  text-align: center;
+  color: red;
 `;
 
 export default CustomForm;
