@@ -1,11 +1,15 @@
 import React from 'react';
-import { Header } from './components/index';
-import { MapContainer } from './pages/Map';
-import { LoginWithAuth } from './pages/Login';
-import { ProfilewithAuth } from './pages/Profile';
-import { RegistrationWithAuth } from './pages/Registration';
+
 import { Routes, Route } from 'react-router-dom';
+
 import { PrivateRoute } from './components/Auth/PrivateRoute';
+import { Header } from './components/index';
+
+import { MapContainer } from './pages/Map/Map';
+import { LoginWithAuth } from './pages/Login/Login';
+import { ProfilewithAuth } from './pages/Profile/Profile';
+import { RegistrationWithAuth } from './pages/Registration/Registration';
+
 import './App.css';
 
 const App = () => {

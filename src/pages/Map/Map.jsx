@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 
-import MapCard from '../components/elements/MapCard/MapCard';
+import MapCard from '../../components/elements/MapCard/MapCard';
 
-import { getAddresList } from '../map/actions';
-import { drawRoute } from '../map/functions/drawRoute';
+import { getAddresList } from '../../modules/map/actions';
+import { drawRoute } from '../../modules/map/functions/drawRoute';
 
 class Map extends React.Component {
   map = null;

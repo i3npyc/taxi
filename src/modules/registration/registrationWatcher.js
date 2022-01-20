@@ -1,6 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+
+import { ServiceApi } from '../../service/api';
+
 import { REGISTRATION } from './action';
-import { ServiceApi } from '../service/api';
 import { logIn } from '../auth/actions';
 
 export function* registrationSaga(action) {

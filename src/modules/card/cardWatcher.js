@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { ServiceApi } from '../service/api';
+import { ServiceApi } from '../../service/api';
 import { CARD, payment } from './actions';
 
 export function* cardSaga(action) {

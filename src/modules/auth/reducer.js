@@ -9,15 +9,9 @@ const initialState = {
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOG_IN:
-      return {
-        isLoggedIn: true,
-        isFetching: false
-      };
+      return { isLoggedIn: true };
     case LOG_OUT:
-      return {
-        isLoggedIn: false,
-        isFetching: false
-      };
+      return { isLoggedIn: false };
     case ERROR:
       return { loginError: action.payload };
     case FETHING:

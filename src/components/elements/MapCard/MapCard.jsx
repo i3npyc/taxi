@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 
-import { getRoute } from '../../../map/actions';
+import { getRoute } from '../../../modules/map/actions';
 
 import Select from 'react-select';
 import Button from '../Button/Button';

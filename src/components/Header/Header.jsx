@@ -1,11 +1,16 @@
 import React from 'react';
+
 import propTypes from 'prop-types';
-import styled from 'styled-components';
-import logo from '../../static/img/logo.svg';
+
 import { Link } from 'react-router-dom';
-import { logOut } from '../../auth/actions';
-import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import { logOut } from '../../modules/auth/actions';
+
+import logo from '../../static/img/logo.svg';
+import styled from 'styled-components';
 
 const Header = () => {
   const { isLoggedIn } = useSelector(state => state.auth);

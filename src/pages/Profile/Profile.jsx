@@ -1,10 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+
 import { connect } from 'react-redux';
-import { logOut } from '../auth/actions';
-import { card, notpayment } from '../card/actions';
-import ProfileComplited from '../components/Profile/ProfileComplited';
-import ProfileCard from '../components/Profile/ProfileCard';
+
+import { logOut } from '../../modules/auth/actions';
+import { card, notpayment } from '../../modules/card/actions';
+
+import styled from 'styled-components';
+
+import ProfileComplited from '../../components/Profile/ProfileComplited';
+import ProfileCard from '../../components/Profile/ProfileCard';
 
 class Profile extends React.Component {
   state = {
@@ -57,9 +61,10 @@ class Profile extends React.Component {
   numberValue = value => value.replace(/[^\d]/g, '');
   render() {
     const { numberCardValue, nameValue, dataValue, cvcValue } = this.state;
+    const { success } = this.props;
     return (
       <Profile.Container>
-        {this.props.success ? (
+        {success ? (
           <ProfileComplited changeCard={this.changeCard} />
         ) : (
           <ProfileCard

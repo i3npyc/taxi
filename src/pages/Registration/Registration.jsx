@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { CustomForm } from '../components/index';
-import { registration } from '../registration/action';
+
+import { registration } from '../../modules/registration/action';
+
+import { CustomForm } from '../../components/index';
 
 class Registration extends React.Component {
   setRegistration = e => {

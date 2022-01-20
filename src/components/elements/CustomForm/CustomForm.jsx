@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
+
 import { Input, Button } from '../../index';
+
+import loader from '../../../static/img/loader.svg';
 
 const CustomForm = ({
   title,
@@ -33,9 +36,19 @@ const CustomForm = ({
             <CustomForm.Forget>Забыли пароль?</CustomForm.Forget>
           )}
         </CustomForm.ForgetContainer>
-        <Button onClick={onClick} type="submit">
-          {buttonText}
-        </Button>
+        {isFetching ? (
+          <CustomForm.Loader>
+            <img
+              src={loader}
+              style={{ width: 150 + 'px', height: 150 + 'px' }}
+              alt=""
+            />
+          </CustomForm.Loader>
+        ) : (
+          <Button onClick={onClick} type="submit">
+            {buttonText}
+          </Button>
+        )}
         <CustomForm.Error>{error}</CustomForm.Error>
       </CustomForm.Form>
     </CustomForm.Container>
@@ -90,6 +103,9 @@ CustomForm.Error = styled.p`
   margin: 20px 0px 0px 0px;
   text-align: center;
   color: red;
+`;
+CustomForm.Loader = styled.div`
+  text-align: center;
 `;
 
 export default CustomForm;
