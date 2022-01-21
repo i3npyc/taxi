@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { ServiceApi } from '../../service/api';
 
-import { REGISTRATION } from './action';
+import { registration } from './action';
 import { logIn } from '../auth/actions';
 
 export function* registrationSaga(action) {
@@ -16,5 +16,5 @@ export function* registrationSaga(action) {
 }
 
 export function* registrationWatcher() {
-  yield takeEvery(REGISTRATION, registrationSaga);
+  yield takeEvery(registration.toString(), registrationSaga);
 }

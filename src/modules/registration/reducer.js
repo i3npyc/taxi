@@ -1,16 +1,14 @@
-import { REGISTRATION } from './action';
+import { combineReducers } from 'redux';
+import { handleActions } from 'redux-actions';
+import { registration } from './action';
 
-const initialState = {
-  name: ''
-};
+const name = handleActions(
+  {
+    [registration]: (_state, action) => action.payload
+  },
+  ''
+);
 
-export const registrationReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case REGISTRATION:
-      return {
-        name: action.payload
-      };
-    default:
-      return state;
-  }
-};
+export default combineReducers({
+  name
+});

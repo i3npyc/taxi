@@ -1,19 +1,19 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { ServiceApi } from '../../service/api';
-import { GET_ADDRES_LIST, GET_ROUTE, setAddresList, setRoute } from './actions';
+import { getAddresList, getRoute, setAddresList, setRoute } from './actions';
 
 export function* mapSaga() {
   try {
     const { data } = yield call(ServiceApi.getAddresses);
     yield put(setAddresList(data?.addresses));
-  } catch(error) {
-    console.error(error.message)
+  } catch (error) {
+    console.error(error.message);
   }
 }
 
 export function* mapWatcher() {
-  yield takeEvery(GET_ADDRES_LIST, mapSaga);
+  yield takeEvery(getAddresList.toString(), mapSaga);
 }
 
 export function* routeSaga(action) {
@@ -25,11 +25,11 @@ export function* routeSaga(action) {
       address2?.label
     );
     yield put(setRoute(data));
-  } catch(error) {
-    console.error(error.message)
+  } catch (error) {
+    console.error(error.message);
   }
 }
 
 export function* routeWatchet() {
-  yield takeEvery(GET_ROUTE, routeSaga);
+  yield takeEvery(getRoute.toString(), routeSaga);
 }

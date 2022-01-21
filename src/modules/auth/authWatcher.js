@@ -1,7 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
 import { ServiceApi } from '../../service/api';
-import { AUTHENTICATE, logIn, serError, setFething } from './actions';
+import { authenticate, logIn, setError, setFething } from './actions';
 
 export function* authenticateSaga(action) {
   try {
@@ -14,7 +14,7 @@ export function* authenticateSaga(action) {
       localStorage.setItem('access_token', data?.token);
       yield put(logIn());
     } else {
-      yield put(serError(data.error));
+      yield put(setError(data.error));
     }
   } catch (error) {
     yield put(setFething(false));
@@ -23,5 +23,5 @@ export function* authenticateSaga(action) {
 }
 
 export function* authWatcher() {
-  yield takeEvery(AUTHENTICATE, authenticateSaga);
+  yield takeEvery(authenticate.toString(), authenticateSaga);
 }

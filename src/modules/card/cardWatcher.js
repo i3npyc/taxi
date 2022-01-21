@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { ServiceApi } from '../../service/api';
-import { CARD, payment } from './actions';
+import { card, payment } from './actions';
 
 export function* cardSaga(action) {
   const { number, expiryDate, name, cvc } = action.payload;
@@ -18,5 +18,5 @@ export function* cardSaga(action) {
 }
 
 export function* cardWatcher() {
-  yield takeEvery(CARD, cardSaga);
+  yield takeEvery(card.toString(), cardSaga);
 }

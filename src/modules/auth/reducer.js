@@ -1,22 +1,32 @@
-import { ERROR, FETHING, LOG_IN, LOG_OUT } from './actions';
+import { combineReducers } from 'redux';
+import { handleActions } from 'redux-actions';
 
-const initialState = {
-  isLoggedIn: false,
-  isFetching: false,
-  loginError: ''
-};
+import { logIn, logOut, setFething, setError } from './actions';
 
-export const authReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case LOG_IN:
-      return { isLoggedIn: true };
-    case LOG_OUT:
-      return { isLoggedIn: false };
-    case ERROR:
-      return { loginError: action.payload };
-    case FETHING:
-      return { isFetching: action.payload };
-    default:
-      return state;
-  }
-};
+const isLoggedIn = handleActions(
+  {
+    [logIn]: (_state, action) => true,
+    [logOut]: (_state, action) => false
+  },
+  false
+);
+
+const isFetching = handleActions(
+  {
+    [setFething]: (_state, action) => action.payload
+  },
+  false
+);
+
+const loginError = handleActions(
+  {
+    [setError]: (_state, action) => action.payload
+  },
+  ''
+);
+
+export default combineReducers({
+  isLoggedIn,
+  isFetching,
+  loginError
+});

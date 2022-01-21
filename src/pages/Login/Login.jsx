@@ -9,15 +9,14 @@ import { authenticate } from '../../modules/auth/actions';
 
 import { CustomForm } from '../../components/index';
 
-
 class Login extends React.Component {
   authenticate = e => {
     e.preventDefault();
     const { email, password } = e.target;
-    this.props.authenticate(email.value, password.value);
+    this.props.authenticate({ email: email.value, password: password.value });
   };
   render() {
-    const { loginError, isFetching } = this.props
+    const { loginError, isFetching } = this.props;
 
     const listInput = [
       { id: 1, type: 'email', name: 'email', label: 'Email' },

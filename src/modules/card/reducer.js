@@ -1,20 +1,16 @@
-import { NOTPAYMENT, PAYMENT } from './actions';
+import { combineReducers } from 'redux';
+import { handleActions } from 'redux-actions';
 
-const initialState = {
-  success: false
-};
+import { payment, notpayment } from './actions';
 
-export const paymentReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case PAYMENT:
-      return {
-        success: true
-      }
-    case NOTPAYMENT: 
-      return {
-        success: false
-      }
-    default:
-      return state;
-  }
-};
+const success = handleActions(
+  {
+    [payment]: (_state, action) => true,
+    [notpayment]: (_state, action) => false
+  },
+  false
+);
+
+export default combineReducers({
+  success
+});
