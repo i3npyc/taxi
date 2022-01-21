@@ -93,7 +93,7 @@ Profile.Container = styled.div`
 `;
 
 export const ProfilewithAuth = connect(
-  state => ({ success: state.payment.success }),
+  state => ({ success: state.card.success }),
   {
     logOut,
     card,

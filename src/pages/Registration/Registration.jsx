@@ -10,14 +10,16 @@ class Registration extends React.Component {
   setRegistration = e => {
     e.preventDefault();
     const { email, password, name, surname } = e.target;
-    this.props.registration(
-      email.value,
-      password.value,
-      name.value,
-      surname.value
-    );
+    this.props.registration({
+      email: email.value,
+      password: password.value,
+      name: name.value,
+      surname: surname.value
+    });
   };
   render() {
+    const { isLoggedIn, isFetching } = this.props;
+
     const listInput = [
       { id: 1, type: 'email', name: 'email', label: 'Email*' },
       { id: 2, type: 'text', name: 'name', label: 'Как вас зовут?*' },
@@ -26,7 +28,7 @@ class Registration extends React.Component {
     ];
     return (
       <>
-        {this.props.isLoggedIn ? (
+        {isLoggedIn ? (
           <Navigate to="/profile" />
         ) : (
           <CustomForm
@@ -35,6 +37,7 @@ class Registration extends React.Component {
             buttonText="Зарегистрироваться"
             listInput={listInput}
             onSubmit={this.setRegistration}
+            isFetching={isFetching}
           />
         )}
       </>
@@ -43,6 +46,9 @@ class Registration extends React.Component {
 }
 
 export const RegistrationWithAuth = connect(
-  state => ({ isLoggedIn: state.auth.isLoggedIn }),
+  state => ({
+    isLoggedIn: state.auth.isLoggedIn,
+    isFetching: state.auth.isFetching
+  }),
   { registration }
 )(Registration);

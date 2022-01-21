@@ -2,16 +2,23 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { ServiceApi } from '../../service/api';
 
-import { registration } from './action';
-import { logIn } from '../auth/actions';
+import { registration, setFethingRegister } from './action';
+import { logIn, setFething } from '../auth/actions';
 
 export function* registrationSaga(action) {
-  const { email, password, name, surname } = action.payload;
-  const form = { email, password, name, surname };
-  const { data } = yield call(ServiceApi.createAccount, form);
-  if(data?.success) {
-    localStorage.setItem('access_token', data?.token)
-    yield put(logIn());
+  try {
+    yield put(setFething(true))
+    const { email, password, name, surname } = action.payload;
+    const form = { email, password, name, surname };
+    const { data } = yield call(ServiceApi.createAccount, form);
+    yield put(setFething(false))
+    if(data?.success) {
+      localStorage.setItem('access_token', data?.token)
+      yield put(logIn());
+    }
+  } catch(error) {
+    yield put(setFething(false))
+    console.error(error.message)
   }
 }
 
