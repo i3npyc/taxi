@@ -1,11 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { ServiceApi } from '../../service/api';
+import { getAddresses, getCoordinates } from '../../api/map';
 import { getAddresList, getRoute, setAddresList, setRoute } from './actions';
 
 export function* mapSaga() {
   try {
-    const { data } = yield call(ServiceApi.getAddresses);
+    const { data } = yield call(getAddresses);
     yield put(setAddresList(data?.addresses));
   } catch (error) {
     console.error(error.message);
@@ -20,7 +20,7 @@ export function* routeSaga(action) {
   try {
     const { address1, address2 } = action.payload;
     const { data } = yield call(
-      ServiceApi.getRoute,
+      getCoordinates,
       address1?.label,
       address2?.label
     );

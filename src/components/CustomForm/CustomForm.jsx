@@ -5,53 +5,73 @@ import propTypes from 'prop-types';
 import { Input, Button } from '../index';
 
 import loader from '../../static/img/loader.svg';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { authenticate } from '../../modules/auth/actions';
+import { registration } from '../../modules/registration/action';
 
 const CustomForm = ({
   title,
   listInput,
   buttonText,
-  onSubmit,
-  register,
+  isRegister,
   onClick,
   error,
+  registrationError,
   isFetching
 }) => {
+  // const { register, handleSubmit } = useForm();
+  const formMethods = useForm();
+  const dispatch = useDispatch();
+
+  const onSubmit = data => {
+    const { email, password, name, surname } = data;
+    debugger;
+    if (isRegister) {
+      dispatch(registration({ email, password, name, surname }));
+      // return
+    } else {
+      dispatch(authenticate({ email, password }));
+    }
+  };
+
   return (
-    <CustomForm.Container>
-      <CustomForm.Form onSubmit={onSubmit}>
-        <CustomForm.Title>{title}</CustomForm.Title>
-        {listInput.map(input => (
-          <Input
-            key={input?.id}
-            type={input?.type}
-            name={input?.name}
-            id={input?.id}
-            label={input?.label}
-          />
-        ))}
-        <CustomForm.ForgetContainer>
-          {register ? (
-            register
-          ) : (
-            <CustomForm.Forget>Забыли пароль?</CustomForm.Forget>
-          )}
-        </CustomForm.ForgetContainer>
-        {isFetching ? (
-          <CustomForm.Loader>
-            <img
-              src={loader}
-              style={{ width: 150 + 'px', height: 150 + 'px' }}
-              alt=""
+    <FormProvider {...formMethods}>
+      <CustomForm.Container>
+        <CustomForm.Form onSubmit={formMethods?.handleSubmit(onSubmit)}>
+          <CustomForm.Title>{title}</CustomForm.Title>
+          {listInput.map(input => (
+            <Input
+              key={input?.id}
+              type={input?.type}
+              name={input?.name}
+              id={input?.id}
+              label={input?.label}
             />
-          </CustomForm.Loader>
-        ) : (
-          <Button onClick={onClick} type="submit">
-            {buttonText}
-          </Button>
-        )}
-        <CustomForm.Error>{error}</CustomForm.Error>
-      </CustomForm.Form>
-    </CustomForm.Container>
+          ))}
+          <CustomForm.ForgetContainer>
+            {isRegister && (
+              <CustomForm.Forget>Забыли пароль?</CustomForm.Forget>
+            )}
+          </CustomForm.ForgetContainer>
+          {isFetching ? (
+            <CustomForm.Loader>
+              <img
+                src={loader}
+                style={{ width: 150 + 'px', height: 150 + 'px' }}
+                alt=""
+              />
+            </CustomForm.Loader>
+          ) : (
+            <Button onClick={onClick} type="submit">
+              {buttonText}
+            </Button>
+          )}
+          <CustomForm.Error>{error}</CustomForm.Error>
+          <CustomForm.Error>{registrationError}</CustomForm.Error>
+        </CustomForm.Form>
+      </CustomForm.Container>
+    </FormProvider>
   );
 };
 

@@ -1,18 +1,19 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
+import { useFormContext } from 'react-hook-form';
 
-const Input = ({ id, type, name, label, value, hendlerChange, maxlength }) => {
+const Input = ({ id, type, name, label, maxlength }) => {
+  const { register } = useFormContext();
   return (
     <Input.Container>
       <Input.Label htmlFor={id}>{label}</Input.Label>
       <Input.Input
         maxLength={maxlength}
-        onChange={hendlerChange}
-        value={value}
         type={type || 'text'}
         name={name}
         id={id}
+        {...register(name, { required: true })}
       />
     </Input.Container>
   );

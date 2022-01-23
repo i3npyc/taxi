@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-import { registration } from './action';
+import { registration, setRegistrationError } from './action';
 
 const name = handleActions(
   {
@@ -9,6 +9,14 @@ const name = handleActions(
   ''
 );
 
+const registrationError = handleActions(
+  {
+    [setRegistrationError]: (_state, action) => action.payload
+  },
+  ''
+);
+
 export default combineReducers({
-  name
+  name,
+  registrationError
 });

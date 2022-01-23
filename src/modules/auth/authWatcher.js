@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
-import { ServiceApi } from '../../service/api';
+import { auth } from '../../api/auth';
 import { authenticate, logIn, setError, setFething } from './actions';
 
 export function* authenticateSaga(action) {
@@ -8,7 +8,7 @@ export function* authenticateSaga(action) {
     yield put(setFething(true));
     const { email, password } = action.payload;
     const form = { email, password };
-    const { data } = yield call(ServiceApi.auth, form);
+    const { data } = yield call(auth, form);
     yield put(setFething(false));
     if (data?.success) {
       localStorage.setItem('access_token', data?.token);

@@ -12,6 +12,5 @@ const store = () => {
   sagaMiddleware.run(rootSaga);
   return mainStore;
 };
-console.log(rootReducer)
 
 export default store;
