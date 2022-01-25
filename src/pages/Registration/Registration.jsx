@@ -2,42 +2,57 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
+import { registration } from '../../modules/registration/action';
 import { selectRegistrationError } from '../../modules/registration/selectors';
-import { selectIsFetching, selectIsLoggedIn } from '../../modules/auth/selectors';
+import {
+  selectIsFetching,
+  selectIsLoggedIn
+} from '../../modules/auth/selectors';
 
-import { CustomForm } from '../../components/index';
+import { CustomForm, Input } from '../../components/index';
 
 class Registration extends React.Component {
   render() {
     const { isLoggedIn, isFetching, registrationError } = this.props;
 
-    const listInput = [
-      { id: 1, type: 'email', name: 'email', label: 'Email*' },
-      { id: 2, type: 'text', name: 'name', label: 'Как вас зовут?*' },
-      { id: 3, type: 'test', name: 'surname', label: 'Ваша фамилия*' },
-      { id: 4, type: 'password', name: 'password', label: 'Придумайте пароль*' }
-    ];
+    const createAccout = data => {
+      const { email, password, name, surname } = data;
+      this.props.registration({ email, password, name, surname });
+    };
     return (
       <>
         {isLoggedIn ? (
-          <Navigate to="/profile" />
+          <Navigate to="/" />
         ) : (
           <CustomForm
             isRegister
             title="Регистрация"
             buttonText="Зарегистрироваться"
-            listInput={listInput}
             isFetching={isFetching}
             registrationError={registrationError}
-          />
+            onSubmit={createAccout}
+          >
+            <Input id={1} name="email" type="email" label="Email*" />
+            <Input id={2} name="name" type="text" label="Как вас зовут?*" />
+            <Input id={3} name="surname" type="text" label="Ваша фамилия*" />
+            <Input
+              id={4}
+              name="password"
+              type="password"
+              label="Придумайте пароль*"
+            />
+          </CustomForm>
         )}
       </>
     );
   }
 }
 
-export const RegistrationWithAuth = connect(state => ({
-  isLoggedIn: selectIsLoggedIn(state),
-  isFetching: selectIsFetching(state),
-  registrationError: selectRegistrationError(state)
-}))(Registration);
+export const RegistrationWithAuth = connect(
+  state => ({
+    isLoggedIn: selectIsLoggedIn(state),
+    isFetching: selectIsFetching(state),
+    registrationError: selectRegistrationError(state)
+  }),
+  { registration }
+)(Registration);

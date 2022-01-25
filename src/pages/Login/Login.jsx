@@ -12,21 +12,16 @@ import {
   selectLoginError
 } from '../../modules/auth/selectors';
 
-import { CustomForm } from '../../components/index';
+import { CustomForm, Input } from '../../components/index';
 
 class Login extends React.Component {
-  authenticate = e => {
-    e.preventDefault();
-    const { email, password } = e.target;
-    this.props.authenticate({ email: email.value, password: password.value });
+  authenticate = data => {
+    const { email, password } = data;
+    this.props.authenticate({ email, password });
   };
   render() {
     const { loginError, isFetching } = this.props;
 
-    const listInput = [
-      { id: 1, type: 'email', name: 'email', label: 'Email' },
-      { id: 2, type: 'password', name: 'password', label: 'Пароль' }
-    ];
     return (
       <>
         {this.props.isLoggedIn ? (
@@ -35,11 +30,13 @@ class Login extends React.Component {
           <CustomForm
             title="Войти"
             buttonText="Войти"
-            listInput={listInput}
             onSubmit={this.authenticate}
             error={loginError}
             isFetching={isFetching}
-          />
+          >
+            <Input id={1} name="email" type="email" label="Email" />
+            <Input id={2} name="password" type="password" label="Пароль" />
+          </CustomForm>
         )}
       </>
     );

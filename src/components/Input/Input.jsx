@@ -1,10 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import { useFormContext } from 'react-hook-form';
 
-const Input = ({ id, type, name, label, maxlength }) => {
-  const { register } = useFormContext();
+const Input = ({ id, type, name, label, register, maxlength }) => {
   return (
     <Input.Container>
       <Input.Label htmlFor={id}>{label}</Input.Label>
@@ -13,7 +11,7 @@ const Input = ({ id, type, name, label, maxlength }) => {
         type={type || 'text'}
         name={name}
         id={id}
-        {...register(name, { required: true })}
+        {...register(name)}
       />
     </Input.Container>
   );
