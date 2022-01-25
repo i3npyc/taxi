@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Input = ({ id, type, name, label, register, maxlength }) => {
+const Input = ({ id, type, name, label, register, maxlength, hendlerChange, value }) => {
   return (
     <Input.Container>
       <Input.Label htmlFor={id}>{label}</Input.Label>
@@ -12,6 +12,8 @@ const Input = ({ id, type, name, label, register, maxlength }) => {
         name={name}
         id={id}
         {...register(name)}
+        onChange={hendlerChange}
+        value={value}
       />
     </Input.Container>
   );

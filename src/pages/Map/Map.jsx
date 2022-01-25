@@ -34,7 +34,7 @@ class Map extends React.Component {
   render() {
     const { addresses, coordinates } = this.props;
 
-    if (coordinates.length) drawRoute(this.map, coordinates);
+    if (coordinates.length && this.map) drawRoute(this.map, coordinates);
 
     return (
       <Map.Wrapper>

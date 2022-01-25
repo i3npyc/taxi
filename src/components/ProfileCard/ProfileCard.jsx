@@ -1,5 +1,6 @@
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { Button, Card, Input } from '..';
+import { Button, Card, Input } from '../index';
 
 const ProfileCard = ({
   hendlerChange,
@@ -10,6 +11,8 @@ const ProfileCard = ({
   cvcValue,
   submitCard
 }) => {
+  const { handleSubmit, register } = useForm()
+
   return (
     <ProfileCard.Content>
       <ProfileCard.Header>
@@ -18,7 +21,7 @@ const ProfileCard = ({
       </ProfileCard.Header>
       <ProfileCard.Data>
         <ProfileCard.DataItem>
-          <ProfileCard.Form>
+          <ProfileCard.Form onSubmit={handleSubmit(submitCard)}>
             <Input
               hendlerChange={hendlerChange}
               value={nameValue.toLocaleUpperCase()}
@@ -26,6 +29,7 @@ const ProfileCard = ({
               type="text"
               black
               label="Имя владельца"
+              register={register}
             />
             <Input
               hendlerChange={hendlerChange}
@@ -35,6 +39,7 @@ const ProfileCard = ({
               label="Номер карты"
               maxlength="19"
               name="number"
+              register={register}
             />
             <ProfileCard.InputBlock>
               <Input
@@ -45,6 +50,7 @@ const ProfileCard = ({
                 name="data"
                 black
                 label="MM/YY"
+                register={register}
               />
               <Input
                 hendlerChange={hendlerChange}
@@ -54,6 +60,7 @@ const ProfileCard = ({
                 name="cvc"
                 black
                 label="CVC"
+                register={register}
               />
             </ProfileCard.InputBlock>
           </ProfileCard.Form>
