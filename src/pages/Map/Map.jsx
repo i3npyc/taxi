@@ -2,9 +2,10 @@ import React from 'react';
 import mapboxGl from 'mapbox-gl';
 import { connect } from 'react-redux';
 
-import { getAddresList } from '../../modules/map/actions';
-
 import { drawRoute } from '../../modules/map/functions/drawRoute';
+
+import { selectAddreses, selectCoordinates } from '../../modules/map/selectors';
+import { getAddresList } from '../../modules/map/actions';
 
 import { MapCard } from '../../components/index';
 
@@ -61,8 +62,8 @@ Map.Map = styled.div`
 
 export const MapContainer = connect(
   state => ({
-    addresses: state.map.addresses,
-    coordinates: state.map.coordinates
+    addresses: selectAddreses(state),
+    coordinates: selectCoordinates(state)
   }),
   { getAddresList }
 )(Map);

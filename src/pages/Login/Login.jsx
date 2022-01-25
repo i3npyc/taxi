@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 import { authenticate } from '../../modules/auth/actions';
+import {
+  selectIsFetching,
+  selectIsLoggedIn,
+  selectLoginError
+} from '../../modules/auth/selectors';
 
 import { CustomForm } from '../../components/index';
 
@@ -49,9 +54,9 @@ Login.propTypes = {
 
 export const LoginWithAuth = connect(
   state => ({
-    isLoggedIn: state.auth.isLoggedIn,
-    loginError: state.auth.loginError,
-    isFetching: state.auth.isFetching
+    isLoggedIn: selectIsLoggedIn(state),
+    loginError: selectLoginError(state),
+    isFetching: selectIsFetching(state)
   }),
   { authenticate }
 )(Login);

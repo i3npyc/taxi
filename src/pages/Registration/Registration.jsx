@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
+import { selectRegistrationError } from '../../modules/registration/selectors';
+import { selectIsFetching, selectIsLoggedIn } from '../../modules/auth/selectors';
+
 import { CustomForm } from '../../components/index';
 
 class Registration extends React.Component {
@@ -34,7 +37,7 @@ class Registration extends React.Component {
 }
 
 export const RegistrationWithAuth = connect(state => ({
-  isLoggedIn: state.auth.isLoggedIn,
-  isFetching: state.auth.isFetching,
-  registrationError: state.registration.registrationError
+  isLoggedIn: selectIsLoggedIn(state),
+  isFetching: selectIsFetching(state),
+  registrationError: selectRegistrationError(state)
 }))(Registration);

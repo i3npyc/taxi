@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
+
 import { registration, setRegistrationError } from './action';
 
 const name = handleActions(

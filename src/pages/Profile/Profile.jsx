@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import { logOut } from '../../modules/auth/actions';
 import { card, notpayment } from '../../modules/card/actions';
+import { selectSuccess } from '../../modules/card/selectors';
 
 import { ProfileComplited, ProfileCard } from '../../components/index';
 
@@ -93,7 +94,7 @@ Profile.Container = styled.div`
 `;
 
 export const ProfilewithAuth = connect(
-  state => ({ success: state.card.success }),
+  state => ({ success: selectSuccess(state) }),
   {
     logOut,
     card,
