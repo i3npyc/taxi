@@ -19,11 +19,14 @@ class Profile extends React.Component {
   };
   componentDidMount() {
     this.setState({
-      numberValue: this.props.cardData.cardNumber
-        ? this.props.cardData.cardNumber
+      numberCardValue: this.props.cardData.cardNumber
+        ? this.props.cardData.cardNumber.match(/.{1,4}/g).join(' ')
         : '',
       nameValue: this.props.cardData.cardName
         ? this.props.cardData.cardName
+        : '',
+      dataValue: this.props.cardData.expiryDate
+        ? this.props.cardData.expiryDate.match(/.{1,2}/g).join('/')
         : '',
       cvcValue: this.props.cardData.cvc ? this.props.cardData.cvc : ''
     });
@@ -62,7 +65,6 @@ class Profile extends React.Component {
     }
   };
   submitCard = () => {
-    debugger;
     this.props.card({
       number: this.state.numberCardValue,
       expiryDate: this.state.dataValue,
