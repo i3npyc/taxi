@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 
-import { payment, notpayment } from './actions';
+import { payment, notpayment, setCard } from './actions';
 
 const success = handleActions(
   {
@@ -11,6 +11,14 @@ const success = handleActions(
   false
 );
 
+const cardData = handleActions(
+  {
+    [setCard]: (_state, action) => action.payload
+  },
+  {}
+);
+
 export default combineReducers({
-  success
+  success,
+  cardData
 });

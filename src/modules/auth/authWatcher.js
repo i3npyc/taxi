@@ -1,6 +1,9 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
 import { auth } from '../../api/auth';
+import { getCardData } from '../../api/card'
+import { setCard } from '../card/actions';
+
 import { authenticate, logIn, setError, setFething } from './actions';
 
 export function* authenticateSaga(action) {
@@ -12,9 +15,11 @@ export function* authenticateSaga(action) {
     yield put(setFething(false));
     if (data?.success) {
       localStorage.setItem('access_token', data?.token);
+      const dataCard = yield call(getCardData, data?.token)
+      yield put(setCard(dataCard?.data))
       yield put(logIn());
     } else {
-      yield put(setError(data.error));
+      yield put(setError(data?.error));
     }
   } catch (error) {
     yield put(setFething(false));

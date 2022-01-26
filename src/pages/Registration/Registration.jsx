@@ -22,7 +22,7 @@ class Registration extends React.Component {
     return (
       <>
         {isLoggedIn ? (
-          <Navigate to="/" />
+          <Navigate to="/profile" />
         ) : (
           <CustomForm
             isRegister

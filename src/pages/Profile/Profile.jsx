@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { logOut } from '../../modules/auth/actions';
 import { card, notpayment } from '../../modules/card/actions';
-import { selectSuccess } from '../../modules/card/selectors';
+import { selectCardData, selectSuccess } from '../../modules/card/selectors';
 
 import { ProfileComplited, ProfileCard } from '../../components/index';
 
@@ -17,6 +17,20 @@ class Profile extends React.Component {
     dataValue: '',
     cvcValue: ''
   };
+  componentDidMount() {
+    this.setState({
+      numberValue: this.props.cardData.cardNumber
+        ? this.props.cardData.cardNumber
+        : '',
+      nameValue: this.props.cardData.cardName
+        ? this.props.cardData.cardName
+        : '',
+      cvcValue: this.props.cardData.cvc ? this.props.cardData.cvc : ''
+    });
+  }
+  componentWillUnmount() {
+    this.props.notpayment();
+  }
   hendlerChange = e => {
     switch (e.target.name) {
       case 'number':
@@ -48,15 +62,13 @@ class Profile extends React.Component {
     }
   };
   submitCard = () => {
-    this.props.card(
-      this.state.numberCardValue,
-      this.state.dataValue,
-      this.state.nameValue,
-      this.state.cvcValue
-    );
-  };
-  changeCard = () => {
-    this.props.notpayment();
+    debugger;
+    this.props.card({
+      number: this.state.numberCardValue,
+      expiryDate: this.state.dataValue,
+      name: this.state.nameValue,
+      cvc: this.state.cvcValue
+    });
   };
   numberValue = value => value.replace(/[^\d]/g, '');
   render() {
@@ -65,7 +77,7 @@ class Profile extends React.Component {
     return (
       <Profile.Container>
         {success ? (
-          <ProfileComplited changeCard={this.changeCard} />
+          <ProfileComplited />
         ) : (
           <ProfileCard
             hendlerChange={this.hendlerChange}
@@ -94,7 +106,7 @@ Profile.Container = styled.div`
 `;
 
 export const ProfilewithAuth = connect(
-  state => ({ success: selectSuccess(state) }),
+  state => ({ success: selectSuccess(state), cardData: selectCardData(state) }),
   {
     logOut,
     card,
