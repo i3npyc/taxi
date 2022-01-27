@@ -11,7 +11,7 @@ const ProfileCard = ({
   cvcValue,
   submitCard,
 }) => {
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, formState: { errors } } = useForm();
   return (
     <ProfileCard.Content>
       <ProfileCard.Header>
@@ -29,6 +29,7 @@ const ProfileCard = ({
               black
               label="Имя владельца"
               register={register}
+              errors={errors}
             />
             <Input
               hendlerChange={hendlerChange}
@@ -39,6 +40,7 @@ const ProfileCard = ({
               maxlength="19"
               name="number"
               register={register}
+              errors={errors}
             />
             <ProfileCard.InputBlock>
               <Input
@@ -50,6 +52,7 @@ const ProfileCard = ({
                 black
                 label="MM/YY"
                 register={register}
+                errors={errors}
               />
               <Input
                 hendlerChange={hendlerChange}
@@ -60,6 +63,7 @@ const ProfileCard = ({
                 black
                 label="CVC"
                 register={register}
+                errors={errors}
               />
             </ProfileCard.InputBlock>
           </ProfileCard.Form>

@@ -15,7 +15,6 @@ const Input = ({
   value,
   errors
 }) => {
-  // debugger
   return (
     <Input.Container>
       <Input.Label htmlFor={id}>{label}</Input.Label>
@@ -25,7 +24,7 @@ const Input = ({
         name={name}
         id={id}
         {...register(name, {
-          required: "Обязательное поле"
+          required: 'Обязательное поле'
         })}
         onChange={hendlerChange}
         value={value}
@@ -33,7 +32,7 @@ const Input = ({
       <ErrorMessage
         errors={errors}
         name={name}
-        render={({ message }) => <p style={{color: 'red'}}>{message}</p>}
+        render={({ message }) => <p style={{ color: 'red' }}>{message}</p>}
       />
     </Input.Container>
   );

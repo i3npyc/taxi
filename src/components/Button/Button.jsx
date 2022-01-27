@@ -11,7 +11,7 @@ const Button = ({ children, onClick, width, type }) => {
 Button.propTypes = {
   children: propTypes.string,
   onClick: propTypes.func,
-  width: propTypes.bool,
+  width: propTypes.string,
   type: propTypes.string,
 }
 
