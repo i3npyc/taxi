@@ -9,9 +9,13 @@ const ProfileCard = ({
   dataValue,
   numberValue,
   cvcValue,
-  submitCard,
+  submitCard
 }) => {
-  const { handleSubmit, register, formState: { errors } } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm();
   return (
     <ProfileCard.Content>
       <ProfileCard.Header>

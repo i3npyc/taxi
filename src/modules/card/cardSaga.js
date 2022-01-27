@@ -18,7 +18,7 @@ export function* cardSaga(action) {
       yield put(payment());
     }
   } catch (e) {
-    console.error(e.message)
+    console.error(e.message);
   }
 }
 

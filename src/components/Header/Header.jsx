@@ -91,7 +91,6 @@ Header.Img = styled.div`
   width: 270px;
   height: 61px;
   background: url(${logo}) no-repeat;
-  cursor: pointer;
 `;
 Header.Nav = styled.nav``;
 Header.List = styled.ul`

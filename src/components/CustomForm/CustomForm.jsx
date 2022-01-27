@@ -18,7 +18,11 @@ const CustomForm = ({
   children,
   onSubmit
 }) => {
-  const { handleSubmit, register, formState: { errors } } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm();
   return (
     <CustomForm.Container>
       <CustomForm.Form onSubmit={handleSubmit(onSubmit)}>

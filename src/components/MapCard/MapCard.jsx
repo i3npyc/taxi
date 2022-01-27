@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 import { getRoute } from '../../modules/map/actions';
 
-import {CarCardList, Button} from '../index';
+import { CarCardList, Button } from '../index';
 
 import carOne from '../../static/img/mapCard/auto01.png';
 import carTwo from '../../static/img/mapCard/auto02.png';
