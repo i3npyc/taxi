@@ -2,7 +2,20 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Input = ({ id, type, name, label, register, maxlength, hendlerChange, value }) => {
+import { ErrorMessage } from '@hookform/error-message';
+
+const Input = ({
+  id,
+  type,
+  name,
+  label,
+  register,
+  maxlength,
+  hendlerChange,
+  value,
+  errors
+}) => {
+  // debugger
   return (
     <Input.Container>
       <Input.Label htmlFor={id}>{label}</Input.Label>
@@ -11,9 +24,16 @@ const Input = ({ id, type, name, label, register, maxlength, hendlerChange, valu
         type={type || 'text'}
         name={name}
         id={id}
-        {...register(name)}
+        {...register(name, {
+          required: "Обязательное поле"
+        })}
         onChange={hendlerChange}
         value={value}
+      />
+      <ErrorMessage
+        errors={errors}
+        name={name}
+        render={({ message }) => <p style={{color: 'red'}}>{message}</p>}
       />
     </Input.Container>
   );

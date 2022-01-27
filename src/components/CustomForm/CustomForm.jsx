@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useForm } from 'react-hook-form';
 import propTypes from 'prop-types';
+
+import { useForm } from 'react-hook-form';
 
 import { Button } from '../index';
 
@@ -17,7 +18,7 @@ const CustomForm = ({
   children,
   onSubmit
 }) => {
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, formState: { errors } } = useForm();
   return (
     <CustomForm.Container>
       <CustomForm.Form onSubmit={handleSubmit(onSubmit)}>
@@ -28,6 +29,7 @@ const CustomForm = ({
                 ...{
                   ...child.props,
                   register,
+                  errors,
                   key: child.props.name
                 }
               })
