@@ -1,27 +1,37 @@
-import { recordSaga } from '../recordSaga';
 import { authenticateSaga } from './authSaga';
-import { authenticate } from './actions';
+import { call, put } from 'redux-saga/effects';
 
-jest.mock('../../api/auth', () => ({ serverLogin: jest.fn(() => true) }));
+import { setFething } from './actions';
+import { cloneableGenerator } from '@redux-saga/testing-utils';
+import { auth } from '../../api/auth';
 
-describe('authSaga', () => {
-  describe('#AUTHENTICATE', () => {
-    it('authenticates through api', async () => {
-      const dispatched = await recordSaga(
-        authenticateSaga,
-        authenticate('testLogin', 'testpassword')
-      );
-      expect(dispatched).toEqual([
-        {
-          type: 'LOG_IN',
-          payload: true,
-          type: 'FETHING',
-        },
-        {
-          payload: false,
-          type: 'FETHING'
-        }
-      ])
-    });
+describe('authSaga branching', () => {
+  const action = {
+    payload: {
+      email: 'testemail',
+      password: 'testpassword'
+    }
+  };
+
+  const generate = cloneableGenerator(authenticateSaga)(action);
+
+  it('puts login data if no errors', () => {
+    const generateClone = generate.clone();
+
+    expect(generateClone.next(true).value).toEqual(put({
+      type: setFething.toString(),
+      payload: true
+    }))
+
+    expect(generateClone.next().value).toEqual(
+      call(auth, {
+        email: action.payload.email,
+        password: action.payload.password
+      })
+    );
+    expect(generateClone.next(false).value).toEqual(put({
+      type: setFething.toString(),
+      payload: false
+    }))
   });
 });

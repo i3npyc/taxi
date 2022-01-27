@@ -1,27 +1,31 @@
-import { recordSaga } from '../recordSaga';
-import { CardSaga } from './cardSaga';
-import { card } from './actions';
-
-jest.mock('../../api/card', () => ({ serverLogin: jest.fn(() => true) }));
+import { cloneableGenerator } from '@redux-saga/testing-utils';
+import { call } from 'redux-saga/effects';
+import { sendCard } from '../../api/card';
+import { cardSaga } from './cardSaga';
 
 describe('cardSaga', () => {
-  describe('#CARD', () => {
-    it('send card data', async () => {
-      const dispatched = await recordSaga(
-        CardSaga,
-        card('testNumber', 'testExpiryDate', 'name', 'cvc', 'token')
-      );
-      expect(dispatched).toEqual([
-        {
-          type: 'LOG_IN',
-          payload: true,
-          type: 'FETHING'
-        },
-        {
-          payload: false,
-          type: 'FETHING'
-        }
-      ]);
-    });
+  const action = {
+    payload: {
+      number: '0000 0000 0000 0000',
+      expiryDate: '12/4',
+      name: 'TESTNAME',
+      cvc: '321'
+    }
+  };
+
+  const generate = cloneableGenerator(cardSaga)(action);
+
+  it('send data card', () => {
+    const generateClone = generate.clone();
+
+    expect(generateClone.next().value).toEqual(
+      call(sendCard, {
+        number: action.payload.number,
+        expiryDate: action.payload.expiryDate,
+        name: action.payload.name,
+        cvc: action.payload.cvc,
+        token: localStorage.getItem('access_token')
+      })
+    );
   });
 });
