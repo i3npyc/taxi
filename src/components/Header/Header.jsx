@@ -2,7 +2,6 @@ import React from 'react';
 
 import propTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +10,7 @@ import { logOut } from '../../modules/auth/actions';
 
 import logo from '../../static/img/logo.svg';
 import styled from 'styled-components';
+import CustomLink from '../CustomLink/CustomLink';
 
 const Header = () => {
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -38,18 +38,18 @@ const Header = () => {
               {!isLoggedIn && (
                 <Header.ListItem>
                   <Header.Link>
-                    <Link to="/login">Логин</Link>
+                    <CustomLink to="/login">Логин</CustomLink>
                   </Header.Link>
                 </Header.ListItem>
               )}
               <Header.ListItem>
                 <Header.Link>
-                  <Link to="/profile">Профиль</Link>
+                  <CustomLink to="/profile">Профиль</CustomLink>
                 </Header.Link>
               </Header.ListItem>
               <Header.ListItem>
                 <Header.Link>
-                  <Link to="/">Карта</Link>
+                  <CustomLink to="/">Карта</CustomLink>
                 </Header.Link>
               </Header.ListItem>
               {isLoggedIn ? (
@@ -59,7 +59,7 @@ const Header = () => {
               ) : (
                 <Header.ListItem>
                   <Header.Link>
-                    <Link to="/registration">Регистрация</Link>
+                    <CustomLink to="/registration">Регистрация</CustomLink>
                   </Header.Link>
                 </Header.ListItem>
               )}
