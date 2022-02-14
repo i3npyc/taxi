@@ -42,16 +42,20 @@ const Header = () => {
                   </Header.Link>
                 </Header.ListItem>
               )}
-              <Header.ListItem>
-                <Header.Link>
-                  <CustomLink to="/profile">Профиль</CustomLink>
-                </Header.Link>
-              </Header.ListItem>
-              <Header.ListItem>
-                <Header.Link>
-                  <CustomLink to="/">Карта</CustomLink>
-                </Header.Link>
-              </Header.ListItem>
+              {isLoggedIn && (
+                <>
+                  <Header.ListItem>
+                    <Header.Link>
+                      <CustomLink to="/profile">Профиль</CustomLink>
+                    </Header.Link>
+                  </Header.ListItem>
+                  <Header.ListItem>
+                    <Header.Link>
+                      <CustomLink to="/">Карта</CustomLink>
+                    </Header.Link>
+                  </Header.ListItem>
+                </>
+              )}
               {isLoggedIn ? (
                 <Header.ListItem>
                   <Header.Link onClick={headerLogOut}>Выйти</Header.Link>

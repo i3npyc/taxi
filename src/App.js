@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { PrivateRoute, Header } from './components/index';
 
@@ -40,6 +40,7 @@ const App = () => {
               path="/registration"
               element={<RegistrationWithAuth />}
             />
+            <Route exact path="*" element={<Navigate to="/login" />} />
           </Routes>
         </section>
       </main>
