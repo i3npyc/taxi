@@ -13,7 +13,8 @@ const Input = ({
   maxlength,
   hendlerChange,
   value,
-  errors
+  errors,
+  isFetching
 }) => {
   return (
     <Input.Container>
@@ -28,11 +29,12 @@ const Input = ({
         })}
         onChange={hendlerChange}
         value={value}
+        disabled={isFetching ? 'disabled' : ''}
       />
       <ErrorMessage
         errors={errors}
         name={name}
-        render={({ message }) => <p style={{ color: 'red' }}>{message}</p>}
+        render={({ message }) => <p style={{ color: 'red', position: 'absolute'}}>{message}</p>}
       />
     </Input.Container>
   );

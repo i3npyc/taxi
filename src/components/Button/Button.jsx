@@ -2,9 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Button = ({ children, onClick, width, type }) => {
+const Button = ({ children, onClick, width, type, isFetching }) => {
   return (
-    <Button.Container onClick={onClick} type={type} width={width}>
+    <Button.Container className={isFetching ? 'hidden' : ''} onClick={onClick} type={type} width={width}>
       {children}
     </Button.Container>
   );
@@ -26,6 +26,9 @@ Button.Container = styled.button`
   background: #fdbf5a;
   border-radius: 70px;
   font-size: 25px;
+  &.hidden {
+    opacity: 0;
+  }
 `;
 
 export default Button;

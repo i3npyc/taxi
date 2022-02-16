@@ -6,6 +6,7 @@ import { card, payment } from './actions';
 export function* cardSaga(action) {
   try {
     const { number, expiryDate, name, cvc } = action.payload;
+    debugger
     const cardData = {
       number,
       expiryDate,
@@ -14,6 +15,7 @@ export function* cardSaga(action) {
       token: localStorage.getItem('access_token')
     };
     const { data } = yield call(sendCard, cardData);
+    debugger
     if (data?.success) {
       yield put(payment());
     }

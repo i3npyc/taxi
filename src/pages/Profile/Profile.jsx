@@ -46,7 +46,7 @@ class Profile extends React.Component {
         });
         break;
       case 'name':
-        this.setState({ nameValue: e.target.value });
+        this.setState({ nameValue: this.textValue(e.target.value) });
         break;
       case 'data':
         this.setState({
@@ -73,6 +73,7 @@ class Profile extends React.Component {
     });
   };
   numberValue = value => value.replace(/[^\d]/g, '');
+  textValue = value => value.replace(/[^a-z\s]/gi, '');
   render() {
     const { numberCardValue, nameValue, dataValue, cvcValue } = this.state;
     const { success } = this.props;

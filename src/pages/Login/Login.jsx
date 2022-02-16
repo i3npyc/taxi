@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import propTypes from 'prop-types';
 
-import { authenticate } from '../../modules/auth/actions';
+import { authenticate, setError } from '../../modules/auth/actions';
 import {
   selectIsFetching,
   selectIsLoggedIn,
@@ -18,13 +18,15 @@ class Login extends React.Component {
   authenticate = data => {
     const { email, password } = data;
     this.props.authenticate({ email, password });
+    this.props.setError('')
   };
   render() {
-    const { loginError, isFetching } = this.props;
+    const { loginError, isFetching, isLoggedIn } = this.props;
+    console.log(this.props)
 
     return (
       <>
-        {this.props.isLoggedIn ? (
+        {isLoggedIn ? (
           <Navigate to="/" />
         ) : (
           <CustomForm
@@ -55,5 +57,5 @@ export const LoginWithAuth = connect(
     loginError: selectLoginError(state),
     isFetching: selectIsFetching(state)
   }),
-  { authenticate }
+  { authenticate, setError }
 )(Login);
