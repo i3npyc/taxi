@@ -1,24 +1,25 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 import circle from '../../static/img/card/circle.svg';
 import chip from '../../static/img/card/chip.svg';
 import mastercard from '../../static/img/card/mastercard.svg';
 
-const Card = ({ dataValue, numberCard }) => {
+const Card = ({ dataValue, numberCard, nameValue }) => {
   return (
     <Card.Card>
       <Card.CardContent>
         <Card.CardColumn>
           <Card.CardCircle></Card.CardCircle>
           <Card.CardDate>
-            {dataValue}
+            {dataValue.length === 5 ? dataValue : ''}
           </Card.CardDate>
         </Card.CardColumn>
         <Card.CardColumn>
-          <Card.CardNumber>{numberCard}</Card.CardNumber>
+          <Card.CardNumber>{numberCard.length === 19 ? numberCard : ''}</Card.CardNumber>
         </Card.CardColumn>
         <Card.CardColumn>
           <Card.Chip></Card.Chip>
+          <div>{nameValue.toUpperCase()}</div>
           <Card.MasterCard></Card.MasterCard>
         </Card.CardColumn>
       </Card.CardContent>

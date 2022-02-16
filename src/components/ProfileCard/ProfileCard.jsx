@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { Button, Card, Input } from '../index';
 
 const ProfileCard = ({
-  hendlerChange,
+  changeNumber,
+  changeName,
+  changeData,
+  changeCvc,
   nameValue,
   numberCardValue,
   dataValue,
@@ -26,7 +29,7 @@ const ProfileCard = ({
         <ProfileCard.DataItem>
           <ProfileCard.Form onSubmit={handleSubmit(submitCard)}>
             <Input
-              hendlerChange={hendlerChange}
+              hendlerChange={changeName}
               value={nameValue.toLocaleUpperCase()}
               name="name"
               type="text"
@@ -36,7 +39,7 @@ const ProfileCard = ({
               errors={errors}
             />
             <Input
-              hendlerChange={hendlerChange}
+              hendlerChange={changeNumber}
               value={numberCardValue}
               type="text"
               black
@@ -48,7 +51,7 @@ const ProfileCard = ({
             />
             <ProfileCard.InputBlock>
               <Input
-                hendlerChange={hendlerChange}
+                hendlerChange={changeData}
                 maxlength="5"
                 type="text"
                 value={dataValue}
@@ -59,7 +62,7 @@ const ProfileCard = ({
                 errors={errors}
               />
               <Input
-                hendlerChange={hendlerChange}
+                hendlerChange={changeCvc}
                 maxlength="3"
                 type="text"
                 value={numberValue(cvcValue)}
@@ -73,7 +76,11 @@ const ProfileCard = ({
           </ProfileCard.Form>
         </ProfileCard.DataItem>
         <ProfileCard.DataItem>
-          <Card dataValue={dataValue} numberCard={numberCardValue} />
+          <Card
+            nameValue={nameValue}
+            dataValue={dataValue}
+            numberCard={numberCardValue}
+          />
         </ProfileCard.DataItem>
       </ProfileCard.Data>
       <ProfileCard.BlockButton>

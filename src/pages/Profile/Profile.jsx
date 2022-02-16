@@ -34,36 +34,31 @@ class Profile extends React.Component {
   componentWillUnmount() {
     this.props.notpayment();
   }
-  hendlerChange = e => {
-    switch (e.target.name) {
-      case 'number':
-        this.setState({
-          numberCardValue: this.numberValue(e.target.value)
-            ? this.numberValue(e.target.value)
-                .match(/.{1,4}/g)
-                .join(' ')
-            : ''
-        });
-        break;
-      case 'name':
-        this.setState({ nameValue: this.textValue(e.target.value) });
-        break;
-      case 'data':
-        this.setState({
-          dataValue: this.numberValue(e.target.value)
-            ? this.numberValue(e.target.value)
-                .match(/.{1,2}/g)
-                .join('/')
-            : ''
-        });
-        break;
-      case 'cvc':
-        this.setState({ cvcValue: e.target.value });
-        break;
-      default:
-        return;
-    }
+  hendlerChangeNumber = e => {
+    this.setState({
+      numberCardValue: this.numberValue(e.target.value)
+        ? this.numberValue(e.target.value)
+            .match(/.{1,4}/g)
+            .join(' ')
+        : ''
+    });
   };
+  hendlerChangeName = e => {
+    this.setState({ nameValue: this.textValue(e.target.value) });
+  };
+  hendlerChangeData = e => {
+    this.setState({
+      dataValue: this.numberValue(e.target.value)
+        ? this.numberValue(e.target.value)
+            .match(/.{1,2}/g)
+            .join('/')
+        : ''
+    });
+  };
+  hendlerChangeCvc = e => {
+    this.setState({ cvcValue: e.target.value });
+  };
+
   submitCard = () => {
     this.props.card({
       number: this.state.numberCardValue,
@@ -74,6 +69,7 @@ class Profile extends React.Component {
   };
   numberValue = value => value.replace(/[^\d]/g, '');
   textValue = value => value.replace(/[^a-z\s]/gi, '');
+  
   render() {
     const { numberCardValue, nameValue, dataValue, cvcValue } = this.state;
     const { success } = this.props;
@@ -83,7 +79,10 @@ class Profile extends React.Component {
           <ProfileComplited />
         ) : (
           <ProfileCard
-            hendlerChange={this.hendlerChange}
+            changeNumber = {this.hendlerChangeNumber}
+            changeName = {this.hendlerChangeName}
+            changeData = {this.hendlerChangeData}
+            changeCvc = {this.hendlerChangeCvc}
             nameValue={nameValue}
             numberCardValue={numberCardValue}
             dataValue={dataValue}
