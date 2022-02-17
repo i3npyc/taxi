@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { Button, Card, Input } from '../index';
+import { Button, Card, Input, Loader } from '../index';
 
 const ProfileCard = ({
   changeNumber,
@@ -12,7 +12,8 @@ const ProfileCard = ({
   dataValue,
   numberValue,
   cvcValue,
-  submitCard
+  submitCard,
+  isFetching
 }) => {
   const {
     handleSubmit,
@@ -83,8 +84,11 @@ const ProfileCard = ({
           />
         </ProfileCard.DataItem>
       </ProfileCard.Data>
+      {isFetching && <Loader />}
       <ProfileCard.BlockButton>
-        <Button onClick={submitCard}>Сохранить</Button>
+        <Button isFetching={isFetching} onClick={submitCard}>
+          Сохранить
+        </Button>
       </ProfileCard.BlockButton>
     </ProfileCard.Content>
   );

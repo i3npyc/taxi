@@ -1,12 +1,13 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { sendCard } from '../../api/card';
+import { setFething } from '../auth/actions';
 import { card, payment } from './actions';
 
 export function* cardSaga(action) {
   try {
+    yield put(setFething(true));
     const { number, expiryDate, name, cvc } = action.payload;
-    debugger
     const cardData = {
       number,
       expiryDate,
@@ -15,11 +16,12 @@ export function* cardSaga(action) {
       token: localStorage.getItem('access_token')
     };
     const { data } = yield call(sendCard, cardData);
-    debugger
+    yield put(setFething(false));
     if (data?.success) {
       yield put(payment());
     }
   } catch (e) {
+    yield put(setFething(false));
     console.error(e.message);
   }
 }

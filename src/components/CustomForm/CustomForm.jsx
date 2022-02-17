@@ -4,9 +4,7 @@ import propTypes from 'prop-types';
 
 import { useForm } from 'react-hook-form';
 
-import { Button } from '../index';
-
-import loader from '../../static/img/loader.svg';
+import { Button, Loader } from '../index';
 
 const CustomForm = ({
   title,
@@ -43,11 +41,7 @@ const CustomForm = ({
         <CustomForm.ForgetContainer>
           {isRegister && <CustomForm.Forget>Забыли пароль?</CustomForm.Forget>}
         </CustomForm.ForgetContainer>
-        {isFetching && (
-          <CustomForm.Loader>
-            <img src={loader} width={100} height={100} alt="" />
-          </CustomForm.Loader>
-        )}
+        {isFetching && <Loader />}
         <Button isFetching={isFetching} type="submit">
           {buttonText}
         </Button>
@@ -111,14 +105,6 @@ CustomForm.Error = styled.p`
   bottom: 4%;
   left: 50%;
   transform: translate(-50%, 0%);
-`;
-CustomForm.Loader = styled.div`
-  img {
-    position: absolute;
-    bottom: 9%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-  }
 `;
 
 export default CustomForm;

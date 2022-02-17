@@ -9,6 +9,7 @@ import { card, notpayment } from '../../modules/card/actions';
 import { selectCardData, selectSuccess } from '../../modules/card/selectors';
 
 import { ProfileComplited, ProfileCard } from '../../components/index';
+import { selectIsFetching } from '../../modules/auth/selectors';
 
 class Profile extends React.Component {
   state = {
@@ -69,20 +70,21 @@ class Profile extends React.Component {
   };
   numberValue = value => value.replace(/[^\d]/g, '');
   textValue = value => value.replace(/[^a-z\s]/gi, '');
-  
+
   render() {
     const { numberCardValue, nameValue, dataValue, cvcValue } = this.state;
-    const { success } = this.props;
+    const { success, isFetching } = this.props;
     return (
       <Profile.Container>
         {success ? (
           <ProfileComplited />
         ) : (
           <ProfileCard
-            changeNumber = {this.hendlerChangeNumber}
-            changeName = {this.hendlerChangeName}
-            changeData = {this.hendlerChangeData}
-            changeCvc = {this.hendlerChangeCvc}
+            changeNumber={this.hendlerChangeNumber}
+            changeName={this.hendlerChangeName}
+            changeData={this.hendlerChangeData}
+            changeCvc={this.hendlerChangeCvc}
+            isFetching={isFetching}
             nameValue={nameValue}
             numberCardValue={numberCardValue}
             dataValue={dataValue}
@@ -97,6 +99,7 @@ class Profile extends React.Component {
 }
 
 Profile.Container = styled.div`
+  overflow: auto;
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -108,7 +111,11 @@ Profile.Container = styled.div`
 `;
 
 export const ProfilewithAuth = connect(
-  state => ({ success: selectSuccess(state), cardData: selectCardData(state) }),
+  state => ({
+    success: selectSuccess(state),
+    cardData: selectCardData(state),
+    isFetching: selectIsFetching(state)
+  }),
   {
     logOut,
     card,

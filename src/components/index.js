@@ -9,3 +9,4 @@ export { default as CarCardList } from './CarCardList/CarCardList';
 export { default as CarCard } from './CarCard/CarCard';
 export { default as ProfileCard } from './ProfileCard/ProfileCard';
 export { default as ProfileComplited } from './ProfileComplited/ProfileComplited';
+export { default as Loader } from './Loader/Loader';
