@@ -11,18 +11,17 @@ const CarCardList = ({ cars }) => {
 
   return (
     <>
-      {cars &&
-        cars.map(car => (
-          <CarCard
-            key={car?.id}
-            id={car?.id}
-            type={car?.type}
-            price={car?.price}
-            img={car?.img}
-            activeCar={activeCar}
-            onSelect={onSelectCar}
-          />
-        ))}
+      {cars?.map(car => (
+        <CarCard
+          key={car?.id}
+          id={car?.id}
+          type={car?.type}
+          price={car?.price}
+          img={car?.img}
+          activeCar={activeCar}
+          onSelect={onSelectCar}
+        />
+      ))}
     </>
   );
 };
