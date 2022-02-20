@@ -14,7 +14,7 @@ export const Loader = () => {
 Loader.Container = styled.div`
   img {
     position: absolute;
-    bottom: 9%;
+    bottom: 12%;
     left: 50%;
     transform: translate(-50%, 0%);
   }

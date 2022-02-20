@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { Button, Card, Input, Loader } from '../index';
+import { Button, Card, ErrorMessage, Input, Loader } from '../index';
 
 const ProfileCard = ({
   changeNumber,
@@ -13,7 +13,8 @@ const ProfileCard = ({
   numberValue,
   cvcValue,
   submitCard,
-  isFetching
+  isFetching,
+  errorMessage
 }) => {
   const {
     handleSubmit,
@@ -26,9 +27,9 @@ const ProfileCard = ({
         <ProfileCard.Title>Профиль</ProfileCard.Title>
         <ProfileCard.Label>Введите платежные данные</ProfileCard.Label>
       </ProfileCard.Header>
-      <ProfileCard.Data>
-        <ProfileCard.DataItem>
-          <ProfileCard.Form onSubmit={handleSubmit(submitCard)}>
+      <ProfileCard.Form onSubmit={handleSubmit(submitCard)}>
+        <ProfileCard.Body>
+          <ProfileCard.Column>
             <Input
               hendlerChange={changeName}
               value={nameValue.toLocaleUpperCase()}
@@ -56,7 +57,7 @@ const ProfileCard = ({
                 maxlength="5"
                 type="text"
                 value={dataValue}
-                name="data"
+                name="expiryDate"
                 black
                 label="MM/YY"
                 register={register}
@@ -74,22 +75,21 @@ const ProfileCard = ({
                 errors={errors}
               />
             </ProfileCard.InputBlock>
-          </ProfileCard.Form>
-        </ProfileCard.DataItem>
-        <ProfileCard.DataItem>
-          <Card
-            nameValue={nameValue}
-            dataValue={dataValue}
-            numberCard={numberCardValue}
-          />
-        </ProfileCard.DataItem>
-      </ProfileCard.Data>
+          </ProfileCard.Column>
+          <ProfileCard.Column>
+            <Card
+              nameValue={nameValue}
+              dataValue={dataValue}
+              numberCard={numberCardValue}
+            />
+          </ProfileCard.Column>
+        </ProfileCard.Body>
+        <ProfileCard.BlockButton>
+          <Button isFetching={isFetching}>Сохранить</Button>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
+        </ProfileCard.BlockButton>
+      </ProfileCard.Form>
       {isFetching && <Loader />}
-      <ProfileCard.BlockButton>
-        <Button isFetching={isFetching} onClick={submitCard}>
-          Сохранить
-        </Button>
-      </ProfileCard.BlockButton>
     </ProfileCard.Content>
   );
 };
@@ -100,7 +100,7 @@ ProfileCard.Content = styled.div`
   width: 888px;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -60%);
   background: #ffffff;
   box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -121,7 +121,7 @@ ProfileCard.Label = styled.div`
   line-height: 21px;
   color: #7b7b7b;
 `;
-ProfileCard.Data = styled.div`
+ProfileCard.Body = styled.div`
   margin: 0px 0px 15px 0px;
   display: flex;
   gap: 99px;
@@ -130,7 +130,7 @@ ProfileCard.BlockButton = styled.div`
   display: flex;
   justify-content: center;
 `;
-ProfileCard.DataItem = styled.div`
+ProfileCard.Column = styled.div`
   flex: 0 1 50%;
 `;
 ProfileCard.Form = styled.form``;

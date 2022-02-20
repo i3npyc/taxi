@@ -10,3 +10,4 @@ export { default as CarCard } from './CarCard/CarCard';
 export { default as ProfileCard } from './ProfileCard/ProfileCard';
 export { default as ProfileComplited } from './ProfileComplited/ProfileComplited';
 export { default as Loader } from './Loader/Loader';
+export { default as ErrorMessage } from './ErrorMessage/ErrorMessage'

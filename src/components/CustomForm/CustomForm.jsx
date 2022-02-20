@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { useForm } from 'react-hook-form';
 
-import { Button, Loader } from '../index';
+import { Button, ErrorMessage, Loader } from '../index';
 
 const CustomForm = ({
   title,
@@ -45,8 +46,17 @@ const CustomForm = ({
         <Button isFetching={isFetching} type="submit">
           {buttonText}
         </Button>
-        <CustomForm.Error>{error}</CustomForm.Error>
-        <CustomForm.Error>{registrationError}</CustomForm.Error>
+        <ErrorMessage>{error}</ErrorMessage>
+        <ErrorMessage>{registrationError}</ErrorMessage>
+        {isRegister ? (
+          <CustomForm.Question>
+            Уже зарегестрированны? <Link to="/login">Войти</Link>
+          </CustomForm.Question>
+        ) : (
+          <CustomForm.Question>
+            Новый пользователь? <Link to="/registration">Регистрация</Link>
+          </CustomForm.Question>
+        )}
       </CustomForm.Form>
     </CustomForm.Container>
   );
@@ -97,14 +107,16 @@ CustomForm.Forget = styled.button`
     color: #fdbf5a;
   }
 `;
-CustomForm.Error = styled.p`
-  margin: 20px 0px 0px 0px;
+CustomForm.Question = styled.p`
+  margin-top: 33px;
+  font-size: 16px;
+  line-height: 19px;
   text-align: center;
-  color: red;
-  position: absolute;
-  bottom: 4%;
-  left: 50%;
-  transform: translate(-50%, 0%);
+  color: #828282;
+  a {
+    color: #fdbf5a;
+    text-decoration: none;
+  }
 `;
 
 export default CustomForm;

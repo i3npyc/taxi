@@ -6,7 +6,11 @@ import { connect } from 'react-redux';
 
 import { logOut } from '../../modules/auth/actions';
 import { card, notpayment } from '../../modules/card/actions';
-import { selectCardData, selectSuccess } from '../../modules/card/selectors';
+import {
+  selectCardData,
+  selectErrorCard,
+  selectSuccess
+} from '../../modules/card/selectors';
 
 import { ProfileComplited, ProfileCard } from '../../components/index';
 import { selectIsFetching } from '../../modules/auth/selectors';
@@ -60,20 +64,22 @@ class Profile extends React.Component {
     this.setState({ cvcValue: e.target.value });
   };
 
-  submitCard = () => {
+  submitCard = data => {
+    const { number, expiryDate, name, cvc } = data;
     this.props.card({
-      number: this.state.numberCardValue,
-      expiryDate: this.state.dataValue,
-      name: this.state.nameValue,
-      cvc: this.state.cvcValue
+      number,
+      expiryDate,
+      name,
+      cvc
     });
+    console.log(data)
   };
   numberValue = value => value.replace(/[^\d]/g, '');
   textValue = value => value.replace(/[^a-z\s]/gi, '');
 
   render() {
     const { numberCardValue, nameValue, dataValue, cvcValue } = this.state;
-    const { success, isFetching } = this.props;
+    const { success, isFetching, cardError } = this.props;
     return (
       <Profile.Container>
         {success ? (
@@ -91,6 +97,7 @@ class Profile extends React.Component {
             cvcValue={cvcValue}
             numberValue={this.numberValue}
             submitCard={this.submitCard}
+            errorMessage={cardError}
           />
         )}
       </Profile.Container>
@@ -101,8 +108,8 @@ class Profile extends React.Component {
 Profile.Container = styled.div`
   overflow: auto;
   position: fixed;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background: linear-gradient(
     0deg,
     rgba(28, 26, 25, 0.5),
@@ -114,7 +121,8 @@ export const ProfilewithAuth = connect(
   state => ({
     success: selectSuccess(state),
     cardData: selectCardData(state),
-    isFetching: selectIsFetching(state)
+    isFetching: selectIsFetching(state),
+    cardError: selectErrorCard(state)
   }),
   {
     logOut,

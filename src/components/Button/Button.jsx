@@ -26,8 +26,12 @@ Button.Container = styled.button`
   background: #fdbf5a;
   border-radius: 70px;
   font-size: 25px;
+  transition: all 0.2s;
   &.hidden {
     opacity: 0;
+  }
+  &:hover {
+    background: #FFA842;
   }
 `;
 

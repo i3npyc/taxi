@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { sendCard } from '../../api/card';
 import { setFething } from '../auth/actions';
-import { card, payment } from './actions';
+import { card, payment, setError } from './actions';
 
 export function* cardSaga(action) {
   try {
@@ -19,6 +19,8 @@ export function* cardSaga(action) {
     yield put(setFething(false));
     if (data?.success) {
       yield put(payment());
+    } else {
+      yield put(setError(data?.error));
     }
   } catch (e) {
     yield put(setFething(false));
