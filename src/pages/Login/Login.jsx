@@ -22,7 +22,6 @@ class Login extends React.Component {
   };
   render() {
     const { loginError, isFetching, isLoggedIn } = this.props;
-    console.log(this.props)
 
     return (
       <>

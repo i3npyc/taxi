@@ -72,7 +72,6 @@ class Profile extends React.Component {
       name,
       cvc
     });
-    console.log(data)
   };
   numberValue = value => value.replace(/[^\d]/g, '');
   textValue = value => value.replace(/[^a-z\s]/gi, '');
